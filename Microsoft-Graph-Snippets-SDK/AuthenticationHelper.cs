@@ -42,7 +42,7 @@ namespace Microsoft_Graph_Snippets_SDK
                 try
                 {
                     graphClient = new GraphServiceClient(
-                        "https://graph.microsoft.com/testOneDrivePackageFix",
+                        "https://graph.microsoft.com/v1.0",
                         new DelegateAuthenticationProvider(
                             async (requestMessage) =>
                             {
