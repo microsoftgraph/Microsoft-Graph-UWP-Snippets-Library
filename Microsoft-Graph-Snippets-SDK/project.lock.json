@@ -40,6 +40,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+        "compile": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        }
+      },
       "Microsoft.NETCore/5.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "[4.0.0, )",
@@ -1592,6 +1600,14 @@
         },
         "runtime": {
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
+        }
+      },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+        "compile": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -3238,6 +3254,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+        "compile": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        }
+      },
       "Microsoft.NETCore/5.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "[4.0.0, )",
@@ -4852,6 +4876,14 @@
         },
         "runtime": {
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
+        }
+      },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+        "compile": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -6503,6 +6535,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+        "compile": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        }
+      },
       "Microsoft.NETCore/5.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "[4.0.0, )",
@@ -8117,6 +8157,14 @@
         },
         "runtime": {
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
+        }
+      },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+        "compile": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -9768,6 +9816,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
+      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+        "compile": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        },
+        "runtime": {
+          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+        }
+      },
       "Microsoft.NETCore/5.0.0": {
         "dependencies": {
           "Microsoft.CSharp": "[4.0.0, )",
@@ -11398,6 +11454,25 @@
         "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll",
         "Microsoft.Graph.nuspec",
         "package/services/metadata/core-properties/449d8afad7ba42818a57275ae3455eb8.psmdcp"
+      ]
+    },
+    "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "sha512": "qAg/fYD5qi/KlqD0g+H3lrTlCCsYhdiDO17xbwfEEOhrsyyOtTxG7EKNfzaZEv6ipbxrvoQbhe+tP9ehc3yXzg==",
+      "type": "Package",
+      "files": [
+        "[Content_Types].xml",
+        "_rels/.rels",
+        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll",
+        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
+        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd",
+        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
+        "lib/wp/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
+        "lib/wp/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
+        "lib/wpa/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd",
+        "lib/wpa/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
+        "Microsoft.IdentityModel.Clients.ActiveDirectory.nuspec",
+        "package/services/metadata/core-properties/3868b0d1f3b44384a843769debebccd4.psmdcp"
       ]
     },
     "Microsoft.NETCore/5.0.0": {
@@ -14736,6 +14811,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.Graph >= 1.0.0",
+      "Microsoft.IdentityModel.Clients.ActiveDirectory >= 2.23.302261847",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0"
     ],
     "UAP,Version=v10.0": []

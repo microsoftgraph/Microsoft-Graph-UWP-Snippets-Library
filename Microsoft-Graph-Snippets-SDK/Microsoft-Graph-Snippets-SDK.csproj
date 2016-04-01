@@ -97,7 +97,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AuthenticationHelper.cs" />
-    <Compile Include="Authentication\OAuth2AuthenticationProvider.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Groups\GroupStories.cs" />
     <Compile Include="Groups\GroupSnippets.cs" />

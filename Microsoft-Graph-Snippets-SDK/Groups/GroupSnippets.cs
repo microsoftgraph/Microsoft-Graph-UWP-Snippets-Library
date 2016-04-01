@@ -77,12 +77,23 @@ namespace Microsoft_Graph_Snippets_SDK
             {
                 var group = await graphClient.Groups[groupId].Request().GetAsync();
                 members = group.Members;
-                foreach (var member in members )
-                {
-                    Debug.WriteLine("Member Id:" + member.Id);
 
+                //Work around the fact that some groups don't have owners.
+                //Return a non-null collection whenever the call has worked
+                //but the group has no owners.
+                if (members != null)
+                {
+                    foreach (var member in members)
+                    {
+                        Debug.WriteLine("Member Id:" + member.Id);
+
+                    }
                 }
 
+                else
+                {
+                    members = new GroupMembersCollectionWithReferencesPage();
+                }
             }
 
             catch (Exception e)
@@ -105,10 +116,22 @@ namespace Microsoft_Graph_Snippets_SDK
 
                 var group = await graphClient.Groups[groupId].Request().GetAsync();
                 owners = group.Owners;
-                foreach (var owner in owners)
+
+
+                //Work around the fact that some groups don't have owners.
+                //Return a non-null collection whenever the call has worked
+                //but the group has no owners.
+                if (owners != null)
                 {
-                    Debug.WriteLine("Owner Id:"  +  owner.Id);
+                    foreach (var owner in owners)
+                    {
+                        Debug.WriteLine("Owner Id:" + owner.Id);
+                    }
                 }
+                else
+                {
+                    owners = new GroupOwnersCollectionWithReferencesPage();
+                } 
 
             }
 
@@ -172,11 +195,13 @@ namespace Microsoft_Graph_Snippets_SDK
                 groupToUpdate.Description = "This group was updated by the snippets app.";
                 var updatedGroup = await graphClient.Groups[groupId].Request().UpdateAsync(groupToUpdate);
 
-                if (updatedGroup != null)
-                {
-                    Debug.WriteLine("Updated group:" + updatedGroup.Id);
+                //Possible bug; REST call returns 204 (no content), so UpdateAsync doesn't return a group. 
+                //The UpdateAsync() method signature indicates that a group should be returned.
+                //if (updatedGroup != null)
+                //{
+                    //Debug.WriteLine("Updated group:" + updatedGroup.Id);
                     groupUpdated = true;
-                }
+                //}
 
             }
 

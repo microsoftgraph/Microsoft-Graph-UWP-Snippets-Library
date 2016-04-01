@@ -95,7 +95,8 @@ namespace Microsoft_Graph_Snippets_SDK
 
                 var passwordProfile = new PasswordProfile();
                 passwordProfile.Password = "pass@word1";
-                //var organization = await graphClient.Organization.Request().GetAsync();
+                var organization = await graphClient.Organization.Request().GetAsync();
+                var domain = organization.CurrentPage[0].VerifiedDomains.ElementAt(0).Name;
 
                 var user = await graphClient.Users.Request().AddAsync(new User
                 {
@@ -103,7 +104,7 @@ namespace Microsoft_Graph_Snippets_SDK
                     DisplayName = "User " + userName,
                     MailNickname = userName,
                     PasswordProfile = passwordProfile,
-                    UserPrincipalName = userName + "@" + "blah.com"
+                    UserPrincipalName = userName + "@" + domain
 
                 });
 

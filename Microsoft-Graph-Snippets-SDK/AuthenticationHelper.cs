@@ -1,12 +1,14 @@
 ﻿//Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-using Microsoft.Graph.Authentication;
+//using Microsoft.Graph.Authentication;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Graph;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Windows.Security.Authentication.Web;
 using Windows.Security.Authentication.Web.Core;
@@ -19,8 +21,12 @@ namespace Microsoft_Graph_Snippets_SDK
     {
         // The Client ID is used by the application to uniquely identify itself to Microsoft Azure Active Directory (AD).
         static string clientId = App.Current.Resources["ida:ClientID"].ToString();
-
         static string returnUrl = App.Current.Resources["ida:ReturnUrl"].ToString();
+        static string authString = "https://login.microsoftonline.com/common";
+        static string resourceUrl = "https://graph.microsoft.com/";
+
+        public static string TokenForUser;
+        public static DateTimeOffset expiration;
 
         private static GraphServiceClient graphClient = null;
 
@@ -30,32 +36,53 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             if (graphClient == null)
             {
-                var authenticationProvider = new OAuth2AuthenticationProvider(
-                        clientId,
-                        returnUrl,
-                        new string[]
-                        {
-                        "openid",
-                        "offline_access",
-                        "https://graph.microsoft.com/User.Read",
-                        //"https://graph.microsoft.com/User.ReadWrite",
-                        "https://graph.microsoft.com/Mail.Send",
-                        //"https://graph.microsoft.com/User.ReadBasic.All",
-                        "https://graph.microsoft.com/Calendars.ReadWrite",
-                        "https://graph.microsoft.com/Mail.ReadWrite",
-                        //"https://graph.microsoft.com/User.ReadWrite.All",
-                        //"https://graph.microsoft.com/Group.ReadWrite.All",
-                        "https://graph.microsoft.com/Files.ReadWrite",
-                        //"https://graph.microsoft.com/Directory.AccessAsUser.All"
-                    });
+                //*********************************************************************
+                // setup Microsoft Graph Client for user...
+                //*********************************************************************
+                try
+                {
+                    graphClient = new GraphServiceClient(
+                        "https://graph.microsoft.com/testOneDrivePackageFix",
+                        new DelegateAuthenticationProvider(
+                            async (requestMessage) =>
+                            {
+                                var token = await GetTokenForUserAsync();
+                                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", token);
 
-                await authenticationProvider.AuthenticateAsync();
+                            }));
+                    return graphClient;
+                }
 
-                graphClient = new GraphServiceClient(authenticationProvider);
+                catch (Exception ex)
+                {
+
+                }
             }
 
             return graphClient;
         }
+
+
+        /// <summary>
+        /// Get Token for User.
+        /// </summary>
+        /// <returns>Token for user.</returns>
+        public static async Task<string> GetTokenForUserAsync()
+        {
+            if (TokenForUser == null || expiration <= DateTimeOffset.UtcNow.AddMinutes(5))
+            {
+                var redirectUri = new Uri(returnUrl);
+                string authority = authString;
+                AuthenticationContext authenticationContext = new AuthenticationContext(authority, false);
+                AuthenticationResult userAuthnResult = await authenticationContext.AcquireTokenAsync(resourceUrl,
+                    clientId, redirectUri, PromptBehavior.RefreshSession);
+                TokenForUser = userAuthnResult.AccessToken;
+                expiration = userAuthnResult.ExpiresOn;
+            }
+
+            return TokenForUser;
+        }
+
 
         /// <summary>
         /// Signs the user out of the service.
