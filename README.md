@@ -14,7 +14,7 @@
 ##Introduction
 
 This sample shows how to use the Microsoft Graph SDK to send email, manage groups, and perform other activities with Office 365 data.
-It uses the Microsoft Graph SDK and Microsoft.Graph.OAuth2 helper library to handle user authentication and manipulation of the data returned by the Microsoft Graph. The sample uses the v2.0 authentication endpoint, which enables users to sign in with either their personal or work or school Microsoft accounts.
+It uses the [Microsoft Graph .NET Client Library](https://github.com/microsoftgraph/msgraph-sdk-dotnet) to work with data returned by Microsoft Graph. The sample uses the v2.0 authentication endpoint, which enables users to sign in with either their personal or work or school Microsoft accounts.
 
 This repository shows you how to access multiple resources, including Microsoft Azure Active Directory (AD) and the Office 365 APIs, by making HTTP requests to the Microsoft Graph API in a Windows 10 universal app. 
 
