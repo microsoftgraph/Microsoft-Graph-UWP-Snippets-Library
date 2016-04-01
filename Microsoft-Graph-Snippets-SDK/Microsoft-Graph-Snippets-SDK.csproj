@@ -97,12 +97,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="AuthenticationHelper.cs" />
-    <Compile Include="Authentication\AccountSession.cs" />
-    <Compile Include="Authentication\AppConfig.cs" />
-    <Compile Include="Authentication\IOAuthRequestStringBuilder.cs" />
     <Compile Include="Authentication\OAuth2AuthenticationProvider.cs" />
-    <Compile Include="Authentication\OAuthErrorHandler.cs" />
-    <Compile Include="Authentication\OAuthRequestStringBuilder.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Groups\GroupStories.cs" />
     <Compile Include="Groups\GroupSnippets.cs" />
@@ -115,8 +110,6 @@
     <Compile Include="Users\UserSnippets.cs" />
     <Compile Include="Users\UserStories.cs" />
     <Compile Include="ViewModelBase.cs" />
-    <Compile Include="Web\IWebAuthenticationUi.cs" />
-    <Compile Include="Web\WebAuthenticationBrokerWebAuthenticationUi.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

@@ -31,11 +31,9 @@ namespace Microsoft_Graph_Snippets_SDK
             if (graphClient == null)
             {
                 var authenticationProvider = new OAuth2AuthenticationProvider(
-                    new AppConfig
-                    {
-                        ClientId = clientId,
-                        ReturnUrl = returnUrl,
-                        Scopes = new string[]
+                        clientId,
+                        returnUrl,
+                        new string[]
                         {
                         "openid",
                         "offline_access",
@@ -49,7 +47,6 @@ namespace Microsoft_Graph_Snippets_SDK
                         //"https://graph.microsoft.com/Group.ReadWrite.All",
                         "https://graph.microsoft.com/Files.ReadWrite",
                         //"https://graph.microsoft.com/Directory.AccessAsUser.All"
-                        },
                     });
 
                 await authenticationProvider.AuthenticateAsync();
