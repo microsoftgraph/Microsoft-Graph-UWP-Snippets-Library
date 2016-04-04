@@ -32,7 +32,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
         // Get an access token for the given context and resourceId. An attempt is first made to 
         // acquire the token silently. If that fails, then we try to acquire the token by prompting the user.
-        public static async Task<GraphServiceClient> GetAuthenticatedClientAsync()
+        public static GraphServiceClient GetAuthenticatedClientAsync()
         {
             if (graphClient == null)
             {
@@ -55,7 +55,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
                 catch (Exception ex)
                 {
-
+                    Debug.WriteLine("Could not create a graph client: " + ex.Message);
                 }
             }
 
