@@ -25,6 +25,15 @@ namespace Microsoft_Graph_Snippets_SDK
         public static async Task<bool> TryGetGroupAsync()
         {
             var groups = await GroupSnippets.GetGroupsAsync();
+
+            // Create new group if no group currently exists
+            // And then get updated groups array
+            if (groups.Count == 0) {
+                await GroupSnippets.CreateGroupAsync(STORY_DATA_IDENTIFIER);
+                groups = await GroupSnippets.GetGroupsAsync();
+            };
+
+            //Pass the first group id from the list
             var groupId = groups[0].Id;
             var groupName = await GroupSnippets.GetGroupAsync(groupId);
             return groupName != null;
@@ -32,8 +41,18 @@ namespace Microsoft_Graph_Snippets_SDK
 
         public static async Task<bool> TryGetGroupMembersAsync()
         {
-            // Get all groups, then pass the first group id from the list.
+            // Get all groups
             var groups = await GroupSnippets.GetGroupsAsync();
+
+            // Create new group if no group currently exists
+            // And then get updated groups array
+            if (groups.Count == 0)
+            {
+                await GroupSnippets.CreateGroupAsync(STORY_DATA_IDENTIFIER);
+                groups = await GroupSnippets.GetGroupsAsync();
+            };
+
+            //Pass the first group id from the list
             var groupId = groups[0].Id;
             var members = await GroupSnippets.GetGroupMembersAsync(groupId);
             return members != null;
@@ -41,8 +60,18 @@ namespace Microsoft_Graph_Snippets_SDK
 
         public static async Task<bool> TryGetGroupOwnersAsync()
         {
-            // Get all groups, then pass the first group id from the list.
+            // Get all groups
             var groups = await GroupSnippets.GetGroupsAsync();
+
+            // Create new group if no group currently exists
+            // And then get updated groups array
+            if (groups.Count == 0)
+            {
+                await GroupSnippets.CreateGroupAsync(STORY_DATA_IDENTIFIER);
+                groups = await GroupSnippets.GetGroupsAsync();
+            };
+
+            // Pass the first group id from the list
             var groupId = groups[0].Id;
             var members = await GroupSnippets.GetGroupOwnersAsync(groupId);
             return members != null;
