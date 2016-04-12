@@ -36,30 +36,14 @@ This sample requires the following:
 <a name="register"></a>
 ##Register and configure the app
 
-1.	Sign in to the [Azure Management Portal](http://aka.ms/i5b8dz) using your Azure AD credentials.
-2.	Click **Active Directory** on the left menu, then select the directory for your Office 365 developer site.
-3.	On the top menu, click **Applications**.
-4.	Click **Add** from the bottom menu.
-5.	On the **What do you want to do page**, click **Add an application my organization is developing**.
-6.	On the **Tell us about your application page**, select **NATIVE CLIENT APPLICATION** for type and specify a name for the app, for example **O365-UWP-Snippets**.
-7.	Click the arrow icon on the lower-right corner of the page.
-8.	On the **Application information** page, enter the redirect URI value that you obtained during the previous step.
-9.	Once the application is successfully added, you'll be taken to the **Quick Start** page for the application. From there, select **Configure** in the top menu.
-10.	Under **permissions to other applications**, select **Add application**. In the dialog box, select the **Microsoft Graph** application. 
-11.	Select the following permissions: 
-	* Have full access to user calendars
-	* Send mail as a user
-	* Read user mail
-	* Read all users' full profiles
-	* Read and write access to user profile
-	* Read and write all groups
-	* Access directory as the signed-in user
-	* Have full access to user files and files shared with user
-	* Sign in and read user profile
-12.	Copy the value specified for **Client ID** on the **Configure** page.
-13.	Click **Save** in the bottom menu.
+1. Sign into the [App Registration Portal](https://apps.dev.microsoft.com/) using either your personal or work or school account.  
+2. Select **Add an app**.  
+3. Enter a name for the app, and select **Create application**. The registration page displays, listing the properties of your app.  
+4. Under **Platforms**, select **Add platform**.  
+5. Select **Mobile platform**.  
+6. Copy both the Client Id (App Id) and Redirect URI values to the clipboard. You'll need to enter these values into the sample app. The app id is a unique identifier for your app. The redirect URI is a unique URI provided by Windows 10 for each application to ensure that messages sent to that URI are only sent to that application.   
+7. Select **Save**.  
 
-**Note**: The **Read and write directory data** permission allows the app to create a user in the tenant. Do not set this permission unless you intend to run the sample with an admin account. The **Create User** snippet will return a 403 (Forbidden) status code if you run the sample with a non-admin account.
 
 <a name="build"></a>
 ## Build and debug ##
