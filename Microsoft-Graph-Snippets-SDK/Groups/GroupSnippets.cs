@@ -163,7 +163,7 @@ namespace Microsoft_Graph_Snippets_SDK
                     Description = "This group was created by the snippets app.",
                     MailNickname = groupName,
                     MailEnabled = false,
-                    SecurityEnabled = true
+                    SecurityEnabled = false
                 });
 
                 createdGroupId = group.Id;
@@ -193,15 +193,12 @@ namespace Microsoft_Graph_Snippets_SDK
             {
                 var groupToUpdate = new Group();
                 groupToUpdate.Description = "This group was updated by the snippets app.";
-                var updatedGroup = await graphClient.Groups[groupId].Request().UpdateAsync(groupToUpdate);
 
-                //Possible bug; REST call returns 204 (no content), so UpdateAsync doesn't return a group. 
-                //The UpdateAsync() method signature indicates that a group should be returned.
-                //if (updatedGroup != null)
-                //{
-                    //Debug.WriteLine("Updated group:" + updatedGroup.Id);
-                    groupUpdated = true;
-                //}
+                //The underlying REST call returns a 204 (no content), so we can't retrieve the updated group
+                //with this call.
+                await graphClient.Groups[groupId].Request().UpdateAsync(groupToUpdate);
+                Debug.WriteLine("Updated group:" + groupId);
+                groupUpdated = true;
 
             }
 
@@ -226,7 +223,7 @@ namespace Microsoft_Graph_Snippets_SDK
             {
                 var groupToDelete = await graphClient.Groups[groupId].Request().GetAsync();
                 await graphClient.Groups[groupId].Request().DeleteAsync();
-                Debug.WriteLine("Deleted group:" + groupToDelete.DisplayName);
+                Debug.WriteLine("Deleted group:" + groupToDelete.Id);
                 eventDeleted = true;
 
             }

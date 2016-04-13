@@ -88,11 +88,8 @@ namespace Microsoft_Graph_Snippets_SDK
             {
                 var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
 
-                //Get tenant via REST call
-                //HttpClient client = new HttpClient();
-                //var token = graphClient.
-                //client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
-
+                //Get tenant domain from the Organization object. We use this domain to create the 
+                //user's email address.
                 var passwordProfile = new PasswordProfile();
                 passwordProfile.Password = "pass@word1";
                 var organization = await graphClient.Organization.Request().GetAsync();
