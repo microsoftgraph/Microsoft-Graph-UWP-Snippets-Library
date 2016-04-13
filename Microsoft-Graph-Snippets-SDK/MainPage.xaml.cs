@@ -56,6 +56,8 @@ namespace Microsoft_Graph_Snippets_SDK
 
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Me", RunStoryAsync = UserStories.TryGetMeAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Read Users", RunStoryAsync = UserStories.TryGetUsersAsync });
+
+            // Comment the TryCreateUserAsync story if you're not running this sample with an admin work account.
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create User", RunStoryAsync = UserStories.TryCreateUserAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Drive", RunStoryAsync = UserStories.TryGetCurrentUserDriveAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Events", RunStoryAsync = UserStories.TryGetEventsAsync });
@@ -64,9 +66,13 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Delete Event", RunStoryAsync = UserStories.TryDeleteEventAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Messages", RunStoryAsync = UserStories.TryGetMessages });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Send Message", RunStoryAsync = UserStories.TrySendMailAsync });
+
+            // Comment the TryGetCurrentUserManagerAsync, TryGetDirectReportsAsync, and TryGetCurrentUserPhotoAsync stories if you're running this sample with a consumer account.
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Manager", RunStoryAsync = UserStories.TryGetCurrentUserManagerAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Directs", RunStoryAsync = UserStories.TryGetDirectReportsAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Photo", RunStoryAsync = UserStories.TryGetCurrentUserPhotoAsync });
+
+            // Comment the TryGetCurrentUserGroupsAsync story if you're not running this sample with an admin work account.
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get User Groups", RunStoryAsync = UserStories.TryGetCurrentUserGroupsAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get User Files", RunStoryAsync = UserStories.TryGetCurrentUserFilesAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Text File", RunStoryAsync = UserStories.TryCreateFileAsync });
@@ -74,11 +80,14 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Update File", RunStoryAsync = UserStories.TryUpdateFileAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Rename File", RunStoryAsync = UserStories.TryRenameFileAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Delete File", RunStoryAsync = UserStories.TryDeleteFileAsync });
+
+            // Comment the TryCreateFolderAsync story if you're running this sample with a consumer account.
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Folder", RunStoryAsync = UserStories.TryCreateFolderAsync });
 
 
             // Group stories
-
+            // NOTE: All of these snippets will fail for lack of permissions if you're running the sample with a non-admin work account
+            // or any consumer account. Comment these lines if you're not using an admin work account.
             StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get All Groups", RunStoryAsync = GroupStories.TryGetGroupsAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get a Group", RunStoryAsync = GroupStories.TryGetGroupAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get Members", RunStoryAsync = GroupStories.TryGetGroupMembersAsync });
