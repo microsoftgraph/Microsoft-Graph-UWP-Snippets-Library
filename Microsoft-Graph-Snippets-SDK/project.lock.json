@@ -40,12 +40,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "Microsoft.Identity.Client/1.0.303282006-alpha": {
         "compile": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         },
         "runtime": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -1602,12 +1604,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "Microsoft.Identity.Client/1.0.303282006-alpha": {
         "compile": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         },
         "runtime": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -3254,12 +3258,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "Microsoft.Identity.Client/1.0.303282006-alpha": {
         "compile": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         },
         "runtime": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -4878,12 +4884,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "Microsoft.Identity.Client/1.0.303282006-alpha": {
         "compile": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         },
         "runtime": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -6535,12 +6543,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "Microsoft.Identity.Client/1.0.303282006-alpha": {
         "compile": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         },
         "runtime": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -8159,12 +8169,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "Microsoft.Identity.Client/1.0.303282006-alpha": {
         "compile": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         },
         "runtime": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -9816,12 +9828,14 @@
           "lib/portable-net45+netcore45+wpa81+win8/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
+      "Microsoft.Identity.Client/1.0.303282006-alpha": {
         "compile": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         },
         "runtime": {
-          "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd": {}
+          "lib/netcore45/Microsoft.Identity.Client.dll": {},
+          "lib/netcore45/Microsoft.Identity.Client.Platform.dll": {}
         }
       },
       "Microsoft.NETCore/5.0.0": {
@@ -11456,23 +11470,36 @@
         "package/services/metadata/core-properties/449d8afad7ba42818a57275ae3455eb8.psmdcp"
       ]
     },
-    "Microsoft.IdentityModel.Clients.ActiveDirectory/2.23.302261847": {
-      "sha512": "qAg/fYD5qi/KlqD0g+H3lrTlCCsYhdiDO17xbwfEEOhrsyyOtTxG7EKNfzaZEv6ipbxrvoQbhe+tP9ehc3yXzg==",
+    "Microsoft.Identity.Client/1.0.303282006-alpha": {
+      "sha512": "OD/An0gsO7dCylBU4Puz6uutd2/nriJsQO+yQH8ur4HDA/UQcTCHtk5wQgSE/Ypgwohvsi3fhdzA79t7fGaMMg==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
         "_rels/.rels",
-        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll",
-        "lib/net45/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
-        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd",
-        "lib/netcore45/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
-        "lib/wp/Microsoft.IdentityModel.Clients.ActiveDirectory.dll",
-        "lib/wp/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
-        "lib/wpa/Microsoft.IdentityModel.Clients.ActiveDirectory.winmd",
-        "lib/wpa/Microsoft.IdentityModel.Clients.ActiveDirectory.XML",
-        "Microsoft.IdentityModel.Clients.ActiveDirectory.nuspec",
-        "package/services/metadata/core-properties/3868b0d1f3b44384a843769debebccd4.psmdcp"
+        "lib/dnxcore50/Microsoft.Identity.Client.dll",
+        "lib/dnxcore50/Microsoft.Identity.Client.Platform.dll",
+        "lib/dnxcore50/Microsoft.Identity.Client.Platform.xml",
+        "lib/dnxcore50/Microsoft.Identity.Client.xml",
+        "lib/MonoAndroid10/Microsoft.Identity.Client.dll",
+        "lib/MonoAndroid10/Microsoft.Identity.Client.Platform.dll",
+        "lib/MonoAndroid10/Microsoft.Identity.Client.Platform.xml",
+        "lib/MonoAndroid10/Microsoft.Identity.Client.xml",
+        "lib/net45/Microsoft.Identity.Client.dll",
+        "lib/net45/Microsoft.Identity.Client.Platform.dll",
+        "lib/net45/Microsoft.Identity.Client.Platform.xml",
+        "lib/net45/Microsoft.Identity.Client.xml",
+        "lib/netcore45/Microsoft.Identity.Client.dll",
+        "lib/netcore45/Microsoft.Identity.Client.Platform.dll",
+        "lib/netcore45/Microsoft.Identity.Client.Platform.xml",
+        "lib/netcore45/Microsoft.Identity.Client.xml",
+        "lib/portable-net45+win/Microsoft.Identity.Client.dll",
+        "lib/portable-net45+win/Microsoft.Identity.Client.xml",
+        "lib/Xamarin.iOS10/Microsoft.Identity.Client.dll",
+        "lib/Xamarin.iOS10/Microsoft.Identity.Client.Platform.dll",
+        "lib/Xamarin.iOS10/Microsoft.Identity.Client.Platform.xml",
+        "lib/Xamarin.iOS10/Microsoft.Identity.Client.xml",
+        "Microsoft.Identity.Client.nuspec",
+        "package/services/metadata/core-properties/3af73eb2dd86454fb5b526d56865fc6b.psmdcp"
       ]
     },
     "Microsoft.NETCore/5.0.0": {
@@ -14811,7 +14838,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.Graph >= 1.0.0",
-      "Microsoft.IdentityModel.Clients.ActiveDirectory >= 2.23.302261847",
+      "Microsoft.Identity.Client >= 1.0.303282006-alpha",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0"
     ],
     "UAP,Version=v10.0": []

@@ -1,8 +1,6 @@
 ﻿//Copyright (c) Microsoft. All rights reserved. Licensed under the MIT license.
 //See LICENSE in the project root for license information.
 
-//using Microsoft.Graph.Authentication;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using Microsoft.Graph;
 using System;
 using System.Diagnostics;
@@ -14,6 +12,7 @@ using Windows.Security.Authentication.Web;
 using Windows.Security.Authentication.Web.Core;
 using Windows.Security.Credentials;
 using Windows.Storage;
+using Microsoft.Identity.Client;
 
 namespace Microsoft_Graph_Snippets_SDK
 {
@@ -22,9 +21,11 @@ namespace Microsoft_Graph_Snippets_SDK
         // The Client ID is used by the application to uniquely identify itself to Microsoft Azure Active Directory (AD).
         static string clientId = App.Current.Resources["ida:ClientID"].ToString();
         static string returnUrl = App.Current.Resources["ida:ReturnUrl"].ToString();
-        static string authString = "https://login.microsoftonline.com/common";
-        static string resourceUrl = "https://graph.microsoft.com/";
+        //static string authString = "https://login.microsoftonline.com/common";
+        //static string resourceUrl = "https://graph.microsoft.com/";
 
+
+        public static PublicClientApplication PublicClientApp = null;
         public static string TokenForUser;
         public static DateTimeOffset expiration;
 
@@ -72,12 +73,27 @@ namespace Microsoft_Graph_Snippets_SDK
             if (TokenForUser == null || expiration <= DateTimeOffset.UtcNow.AddMinutes(5))
             {
                 var redirectUri = new Uri(returnUrl);
-                string authority = authString;
-                AuthenticationContext authenticationContext = new AuthenticationContext(authority, false);
-                AuthenticationResult userAuthnResult = await authenticationContext.AcquireTokenAsync(resourceUrl,
-                    clientId, redirectUri, PromptBehavior.RefreshSession);
-                TokenForUser = userAuthnResult.AccessToken;
-                expiration = userAuthnResult.ExpiresOn;
+                var scopes = new string[]
+                        {
+                        //"openid",
+                        //"offline_access",
+                        "https://graph.microsoft.com/User.Read",
+                        "https://graph.microsoft.com/User.ReadWrite",
+                        "https://graph.microsoft.com/Mail.Send",
+                        "https://graph.microsoft.com/User.ReadBasic.All",
+                        "https://graph.microsoft.com/Calendars.ReadWrite",
+                        "https://graph.microsoft.com/Mail.ReadWrite",
+                        "https://graph.microsoft.com/User.ReadWrite.All",
+                        "https://graph.microsoft.com/Group.ReadWrite.All",
+                        "https://graph.microsoft.com/Files.ReadWrite",
+                        "https://graph.microsoft.com/Directory.AccessAsUser.All"
+                    };
+
+                PublicClientApp = new PublicClientApplication(clientId);
+                AuthenticationResult authResult = await PublicClientApp.AcquireTokenAsync(scopes);
+
+                TokenForUser = authResult.Token;
+                expiration = authResult.ExpiresOn;
             }
 
             return TokenForUser;
@@ -89,6 +105,10 @@ namespace Microsoft_Graph_Snippets_SDK
         /// </summary>
         public static void SignOut()
         {
+            foreach (var user in PublicClientApp.Users)
+            {
+                user.SignOut();
+            }
             graphClient = null;
 
         }
