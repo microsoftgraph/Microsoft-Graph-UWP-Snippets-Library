@@ -21,8 +21,6 @@ namespace Microsoft_Graph_Snippets_SDK
         // The Client ID is used by the application to uniquely identify itself to Microsoft Azure Active Directory (AD).
         static string clientId = App.Current.Resources["ida:ClientID"].ToString();
         static string returnUrl = App.Current.Resources["ida:ReturnUrl"].ToString();
-        //static string authString = "https://login.microsoftonline.com/common";
-        //static string resourceUrl = "https://graph.microsoft.com/";
 
 
         public static PublicClientApplication PublicClientApp = null;
@@ -75,18 +73,24 @@ namespace Microsoft_Graph_Snippets_SDK
                 var redirectUri = new Uri(returnUrl);
                 var scopes = new string[]
                         {
-                        //"openid",
-                        //"offline_access",
                         "https://graph.microsoft.com/User.Read",
                         "https://graph.microsoft.com/User.ReadWrite",
-                        "https://graph.microsoft.com/Mail.Send",
                         "https://graph.microsoft.com/User.ReadBasic.All",
+                        "https://graph.microsoft.com/Mail.Send",
                         "https://graph.microsoft.com/Calendars.ReadWrite",
                         "https://graph.microsoft.com/Mail.ReadWrite",
+                        "https://graph.microsoft.com/Files.ReadWrite",
+
+                        // Admin-only scopes. Comment these out if you're running the sample with a non-admin work account.
+                        // You won't be able to sign in with a non-admin work account if you request these scopes.
+                        // These scopes will be ignored if you leave them uncommented and run the sample with a consumer account.
+                        // See the MainPage.xaml.cs file for all of the operations that won't work if you're not running the 
+                        // sample with an admin work account.
+                        "https://graph.microsoft.com/Directory.AccessAsUser.All",
                         "https://graph.microsoft.com/User.ReadWrite.All",
                         "https://graph.microsoft.com/Group.ReadWrite.All",
-                        "https://graph.microsoft.com/Files.ReadWrite",
-                        "https://graph.microsoft.com/Directory.AccessAsUser.All"
+
+
                     };
 
                 PublicClientApp = new PublicClientApplication(clientId);
