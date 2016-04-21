@@ -30,8 +30,8 @@ namespace Microsoft_Graph_Snippets_SDK
             return users != null;
         }
 
-        // Comment the call to the TryCreateUser story in MainPage.xaml.cs if
-        // you're not running this sample with an admin work account.
+        // This story requires an admin work account.
+
         public static async Task<bool> TryCreateUserAsync()
         {
             string createdUser = await UserSnippets.CreateUserAsync(STORY_DATA_IDENTIFIER);
@@ -87,29 +87,28 @@ namespace Microsoft_Graph_Snippets_SDK
                 );
         }
 
-        // Comment the TryGetCurrentUserManagerAsync story if you're running this sample with a consumer account.
+        // This story does not work with a personal account
         public static async Task<bool> TryGetCurrentUserManagerAsync()
         {
             string managerName = await UserSnippets.GetCurrentUserManagerAsync();
             return managerName != null;
         }
 
-        // Comment the TryGetDirectReportsAsync story if you're running this sample with a consumer account.
+        // This story does not work with a personal account
         public static async Task<bool> TryGetDirectReportsAsync()
         {
             var users = await UserSnippets.GetDirectReportsAsync();
             return users != null;
         }
 
-        // Comment the TryGetCurrentUserPhotoAsync story if you're running this sample with a consumer account.
+        // This story does not work with a personal account
         public static async Task<bool> TryGetCurrentUserPhotoAsync()
         {
             string photoId = await UserSnippets.GetCurrentUserPhotoAsync();
             return photoId != null;
         }
 
-        // Comment the call to the TryGetCurrentUserGroupsAsync story in MainPage.xaml.cs if
-        // you're not running this sample with an admin work account.
+        // This story requires an admin work account.
         public static async Task<bool> TryGetCurrentUserGroupsAsync()
         {
             var groups = await UserSnippets.GetCurrentUserGroupsAsync();
@@ -155,7 +154,7 @@ namespace Microsoft_Graph_Snippets_SDK
             return await UserSnippets.DeleteFileAsync(createdFileId);
         }
 
-        // Comment the TryCreateFolderAsync story if you're running this sample with a consumer account.
+        // This story does not work with a consumer account.
         public static async Task<bool> TryCreateFolderAsync()
         {
             var createdFolderId = await UserSnippets.CreateFolderAsync(Guid.NewGuid().ToString());

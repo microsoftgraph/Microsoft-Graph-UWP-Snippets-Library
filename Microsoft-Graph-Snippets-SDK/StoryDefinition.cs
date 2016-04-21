@@ -60,10 +60,6 @@ namespace Microsoft_Graph_Snippets_SDK
 
     }
 
-    public class TestGroup
-    {
-        public string GroupTitle { get; set; }
-        public List<StoryDefinition> Tests { get; set; }
-    }
+
 }
 

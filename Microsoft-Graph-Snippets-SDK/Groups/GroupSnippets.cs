@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Graph;
 
 // NOTE: All groups snippets work only with admin work accounts.
-// Comment the calls to the stories that use these snippets in MainPage.xaml.cs 
-// if you're not running the sample with an admin work account.
+
 
 namespace Microsoft_Graph_Snippets_SDK
 {
@@ -150,7 +149,7 @@ namespace Microsoft_Graph_Snippets_SDK
         }
 
 
-        // Creates a new security group in the tenant.
+        // Creates a new group in the tenant.
         public static async Task<string> CreateGroupAsync(string groupName)
         {
             //JObject jResult = null;
