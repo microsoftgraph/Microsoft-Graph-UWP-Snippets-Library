@@ -14,6 +14,8 @@ namespace Microsoft_Graph_Snippets_SDK
         public string GroupName { get; set; }
         public string Title { get; set; }
 
+        public string ScopeGroup { get; set; }
+
         // Delegate method to call
         public Func<Task<bool>> RunStoryAsync { get; set; }
 
