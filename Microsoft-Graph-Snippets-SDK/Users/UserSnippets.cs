@@ -76,9 +76,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
         }
 
-        // Creates a new user in the signed-in user's tenant. This snippet requires an admin work account.
-        // Comment the call to the TryCreateUser story in MainPage.xaml.cs if
-        // you're not running this sample with an admin work account.
+        // Creates a new user in the signed-in user's tenant. 
+        // This snippet requires an admin work account.
+
         public static async Task<string> CreateUserAsync(string userName)
         {
             string createdUserName = null;
@@ -371,8 +371,8 @@ namespace Microsoft_Graph_Snippets_SDK
             return emailSent;
         }
 
-        // Gets the signed-in user's manager. This snippet doesn't work with consumer accounts.
-        // Comment the TryGetCurrentUserManagerAsync story if you're running this sample with a consumer account.
+        // Gets the signed-in user's manager. 
+        // This snippet doesn't work with personal accounts.
         public static async Task<string> GetCurrentUserManagerAsync()
         {
             string currentUserManagerId = null;
@@ -397,8 +397,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
         }
 
-        // Gets the signed-in user's direct reports. This snippet doesn't work with consumer accounts.
-        // Comment the TryGetDirectReportsAsync story if you're running this sample with a consumer account.
+        // Gets the signed-in user's direct reports. 
+        // This snippet doesn't work with consumer accounts.
+
         public static async Task<IUserDirectReportsCollectionWithReferencesPage> GetDirectReportsAsync()
         {
             IUserDirectReportsCollectionWithReferencesPage directReports = null;
@@ -428,8 +429,8 @@ namespace Microsoft_Graph_Snippets_SDK
         }
 
 
-        // Gets the signed-in user's photo. This snippet doesn't work with consumer accounts.
-        // Comment the TryGetCurrentUserPhotoAsync story if you're running this sample with a consumer account.
+        // Gets the signed-in user's photo. 
+        // This snippet doesn't work with consumer accounts.
         public static async Task<string> GetCurrentUserPhotoAsync()
         {
             string currentUserPhotoId = null;
@@ -455,9 +456,8 @@ namespace Microsoft_Graph_Snippets_SDK
 
         }
 
-        // Gets the groups that the signed-in user is a member of. This snippet requires an admin work account.
-        // Comment the call to the TryGetCurrentUserGroupsAsync story in MainPage.xaml.cs if
-        // you're not running this sample with an admin work account.
+        // Gets the groups that the signed-in user is a member of. 
+        // This snippet requires an admin work account.
         public static async Task<IUserMemberOfCollectionWithReferencesPage> GetCurrentUserGroupsAsync()
         {
             IUserMemberOfCollectionWithReferencesPage memberOfGroups = null;
@@ -695,8 +695,8 @@ namespace Microsoft_Graph_Snippets_SDK
         }
 
 
-        // Creates a folder in the user's root directory. This does not work with consumer accounts.
-        // Comment the TryCreateFolderAsync story if you're running this sample with a consumer account.
+        // Creates a folder in the user's root directory. 
+        // This does not work with consumer accounts.
         public static async Task<string> CreateFolderAsync(string folderName)
         {
             string createFolderId = null;

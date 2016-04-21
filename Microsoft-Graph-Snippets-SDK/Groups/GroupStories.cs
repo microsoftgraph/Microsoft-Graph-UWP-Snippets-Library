@@ -10,8 +10,7 @@ using Windows.Storage;
 
 
 // NOTE: All groups snippets work only with admin work accounts.
-// Comment the calls to the stories that use these snippets in MainPage.xaml.cs 
-// if you're not running the sample with an admin work account.
+
 
 namespace Microsoft_Graph_Snippets_SDK
 {
@@ -56,7 +55,7 @@ namespace Microsoft_Graph_Snippets_SDK
                 groups = await GroupSnippets.GetGroupsAsync();
             };
 
-            //Pass the first group id from the list
+            // Pass the first group id from the list
             var groupId = groups[0].Id;
             var members = await GroupSnippets.GetGroupMembersAsync(groupId);
             return members != null;

@@ -41,7 +41,7 @@ namespace Microsoft_Graph_Snippets_SDK
             // Developer code - if you haven't registered the app yet, we warn you. 
             if (!App.Current.Resources.ContainsKey("ida:ClientID"))
             {
-                Debug.WriteLine("Oops - App not registered with Office 365. To run this sample, you must register it with Office 365. See Readme for more info.");
+                Debug.WriteLine("Oops - App not registered. To run this sample, you must register it with the App Registration Portal. See Readme for more info.");
 
             }
         }
