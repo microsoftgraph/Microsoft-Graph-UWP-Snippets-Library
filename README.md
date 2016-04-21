@@ -1,4 +1,4 @@
-# Office 365 Snippets Sample for UWP Using Microsoft Graph
+﻿# Microsoft Graph SDK UWP Snippets Library 
 
 **Table of contents**
 
@@ -6,32 +6,38 @@
 * [Prerequisites](#prerequisites)
 * [Register and configure the app](#register)
 * [Build and debug](#build)
+* [Run the sample](#run)
 * [How the sample affects your tenant data](#how-the-sample-affects-your-tenant-data)
+* [Add a snippet](#add-a-snippet)
 * [Questions and comments](#questions)
 * [Additional resources](#additional-resources)
 
 <a name="introduction"></a>
 ##Introduction
 
-This sample shows how to use the Microsoft Graph SDK to send email, manage groups, and perform other activities with Office 365 data.
-It uses the [Microsoft Graph .NET Client Library](https://github.com/microsoftgraph/msgraph-sdk-dotnet) to work with data returned by Microsoft Graph.
+This sample contains a repository of code snippets that show how to use the Microsoft Graph SDK to send email, manage groups, and perform other activities with Office 365 data. It uses the [Microsoft Graph .NET Client Library](https://github.com/microsoftgraph/msgraph-sdk-dotnet) to work with data returned by Microsoft Graph.
 
 This repository shows you how to access multiple resources, including Microsoft Azure Active Directory (AD) and the Office 365 APIs, by making HTTP requests to the Microsoft Graph API in a Windows 10 universal app. 
 
+In addition, the sample uses the [Microsoft Authentication Library (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client/) for authentication. The MSAL SDK provides features for working with the [v2 authentication endpoint](), which enables developers to write a single code flow that handles authentication for both users' work or school (Azure Active Directory)  or personal (Microsoft) accounts.
 
-**Note:** If possible, please use this sample with a "non-work" or test account in Office 365. With the current version of the project, it does not always clean up the created objects in your mailbox and calendar. At this time you'll have to manually remove sample mails and calendar events.  
+ > **Note** The MSAL SDK is currently in prerelease, and as such should not be used in production code. It is used here for illustrative purposes only.
+
+These snippets are simple and self-contained, and you can copy and paste them into your own code, whenever appropriate, or use them as a resource for learning how to use the Microsoft Graph client library.
+
+**Note:** If possible, please use this sample with a "non-work" or test account. With the current version of the project, it does not always clean up the created objects in your mailbox and calendar. At this time you'll have to manually remove sample mails and calendar events. 
+
+ 
 
 <a name="prerequisites"></a>
 ## Prerequisites ##
 
-This sample requires the following: 
- 
-  * Visual Studio 2015  
-  * Windows 10 ([development mode enabled](https://msdn.microsoft.com/library/windows/apps/xaml/dn706236.aspx))
-  * An Office 365 for business account. You can sign up for [an Office 365 Developer subscription](https://msdn.microsoft.com/en-us/office/office365/howto/setup-development-environment#bk_Office365Account) that includes the resources that you need to start building Office 365 apps.
-  * A Microsoft Azure tenant to register your application. Azure AD provides identity services that applications use for authentication and authorization. A trial subscription can be acquired here: [Microsoft Azure](https://account.windowsazure.com/SignUp).
+This sample requires the following:  
 
-     > Important: You will also need to ensure your Azure subscription is bound to your Office 365 tenant. To do this see [Associate your Office 365 account with Azure AD to create and manage apps](https://msdn.microsoft.com/en-us/office/office365/howto/setup-development-environment#bk_CreateAzureSubscription) for more information.
+  * [Visual Studio 2015](https://www.visualstudio.com/en-us/downloads) 
+  * Windows 10 ([development mode enabled](https://msdn.microsoft.com/library/windows/apps/xaml/dn706236.aspx))
+  * Either a [Microsoft](www.outlook.com) or [Office 365 for business account](https://msdn.microsoft.com/en-us/office/office365/howto/setup-development-environment#bk_Office365Account).
+
       
 <a name="register"></a>
 ##Register and configure the app
@@ -53,23 +59,97 @@ This sample requires the following:
 1. After you've loaded the solution in Visual Studio, configure the sample to use the client id and redirectURI that you registered by adding the corresponding values for these keys in the Application.Resources node of the App.xaml file.
 ![Office 365 UWP Microsoft Graph connect sample](/readme-images/appId_and_redirectURI.png "Client ID value in App.xaml file")`
 
+2.	If you are planning on signing into the sample with a work or school account that does not have admin permissions, you'll need to comment out  code that requests scopes that require admin permissions. If you don't comment out these lines, you won't be able to sign in with your work or school account (if you sign in with a personal account, these scope requests are ignored.)
+
+In the `GetTokenForUserAsync()` method of the `AuthenticationHelper.cs` file, comment out the following scope requests:
+
+```
+	"https://graph.microsoft.com/Directory.AccessAsUser.All",
+    "https://graph.microsoft.com/User.ReadWrite.All",
+    "https://graph.microsoft.com/Group.ReadWrite.All",
+```
+
 2. Press F5 to build and debug. Run the solution and sign in with either your personal or work or school account.
+
+<a name="run"></a>
+## Run the sample
+
+When launched, the app displays a series of boxes representing common user tasks, or 'stories'. Each story is comprised of one or more code snippets. The stories are grouped by the account type and permission level:
+
+- Tasks that are applicable to both work or school and personal accounts, such as getting and sending email, creating files, etc.
+- Tasks that are only applicable to work or school accounts, such as getting a user's manager or account photo.
+- Tasks that are only applicable to a work or school account with administrative permissions, such as getting group members or creating new user accounts.
+
+Select the stories you want to execute, and choose the run button. You'll be prompted to log in with your work or school or personal account. Be aware that if you log in with an account that doesn't have applicable permissions for the stories you've selected(for example, if you select stories that are applicable only to a work or school account, and then log in with a personal account), those stories will fail.
+
+Each story turns green if it succeeds, and red if it fails. Additional information is sent to the Output window. 
 
 <a name="#how-the-sample-affects-your-tenant-data"></a>
 ##How the sample affects your tenant data
-This sample runs REST commands that create, read, update, or delete data. When running commands that delete or edit data, the sample creates fake entities. The fake entities are deleted or edited so that your actual tenant data is unaffected. The sample will leave behind fake entities on your tenant.
+This sample runs commands that create, read, update, or delete data. When running commands that delete or edit data, the sample creates fake entities. The fake entities are deleted or edited so that your actual tenant data is unaffected. The sample will leave behind fake entities on your tenant.
+
+<a name="add-a-snippet"></a>
+##Add a snippet
+
+This project includes two snippets files: 
+
+- Groups\GroupSnippets.cs 
+- Users\UserSnippets.cs.
+
+If you have a snippet of your own that you would like to run in this project, just follow these three steps:
+
+1. **Add your snippet to the snippets file.** Be sure to include a try/catch block. 
+
+        public static async Task<string> GetMeAsync()
+        {
+            string currentUserName = null;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+
+                var currentUserObject = await graphClient.Me.Request().GetAsync();
+                currentUserName = currentUserObject.DisplayName;
+
+                if ( currentUserName != null)
+                {
+                    Debug.WriteLine("Got user: " + currentUserName);
+                }
+
+            }
+
+2. **Create a story that uses your snippet and add it to the associated stories file.** For example, the `TryGetMeAsync()` story uses the `GetMeAsync()` snippet inside the Users\UserStories.cs file:
+
+        public static async Task<bool> TryGetMeAsync()
+        {
+            var currentUser = await UserSnippets.GetMeAsync();
+
+            return currentUser != null;
+        }        
+
+
+Sometimes your story will need to run snippets in addition to the one that you're implementing. For example, if you want to update an event, you first need to use the `CreateEventAsync()` method to create an event. Then you can update it. Always be sure to use snippets that already exist in the snippets file. If the operation you need doesn't exist, you'll have to create it and then include it in your story. It's a best practice to delete any entities that you create in a story, especially if you're working on anything other than a test or developer tenant.
+
+3. **Add your story to the story collection in MainPageXaml.cs** (inside the `CreateStoryList()` method):
+
+	`StoryCollection.Add(new StoryDefinition() 
+		{ GroupName = "Users", Title = "Get Me",  
+			ScopeGroup= "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetMeAsync });`
+
+Now you can test your snippet. When you run the app, your snippet will appear as a new box in the grid. Select the box for your snippet, and then run it. Use this as an opportunity to debug your snippet.
+
+
 
 <a name="questions"></a>
 ## Questions and comments
 
-We'd love to get your feedback about the O365 UWP Microsoft Graph Snippets project. You can send your questions and suggestions to us in the [Issues](https://github.com/OfficeDev/Microsoft-Graph-UWP-Snippets-SDK/issues) section of this repository.
+We'd love to get your feedback about the Microsoft Graph UWP Snippets  Library project. You can send your questions and suggestions to us in the [Issues](https://github.com/OfficeDev/Microsoft-Graph-UWP-Snippets-Library/issues) section of this repository.
 
-Your feedback is important to us. Connect with us on [Stack Overflow](http://stackoverflow.com/questions/tagged/office365+or+microsoftgraph). Tag your questions with [MicrosoftGraph] and [office365].
+Your feedback is important to us. Connect with us on [Stack Overflow](http://stackoverflow.com/questions/tagged/office365+or+microsoftgraph). Tag your questions with [MicrosoftGraph].
 
 <a name="additional-resources"></a>
 ## Additional resources ##
 
-- [Other Office 365 Connect samples](https://github.com/OfficeDev?utf8=%E2%9C%93&query=-Connect)
 - [Microsoft Graph overview](http://graph.microsoft.io)
 - [Office 365 APIs platform overview](https://msdn.microsoft.com/office/office365/howto/platform-development-overview)
 - [Office 365 API code samples and videos](https://msdn.microsoft.com/office/office365/howto/starter-projects-and-code-samples)
