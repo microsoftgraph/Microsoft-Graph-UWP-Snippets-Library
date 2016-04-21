@@ -17,7 +17,7 @@ namespace Microsoft_Graph_Snippets_SDK
     class UserSnippets
     {
 
-        // Returns information about the signed-in user from Azure Active Directory.
+        // Returns information about the signed-in user 
         public static async Task<string> GetMeAsync()
         {
             string currentUserName = null;

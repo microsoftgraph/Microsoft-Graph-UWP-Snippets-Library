@@ -49,60 +49,53 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             StoryCollection = new List<StoryDefinition>();
 
-            // These stories require your app to have permission to access your organization's directory. 
-            // Comment them if you're not going to run the app with that permission level.
+            // Stories applicable to both work or school and personal accounts
+            // NOTE: All of these snippets require permissions available whether you sign into the sample 
+            // with a or work or school (commerical) or personal (consumer) account
 
-            // User stories
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Me",  ScopeGroup= "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetMeAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Read Users", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetUsersAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Drive", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetCurrentUserDriveAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Events", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetEventsAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Event", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryCreateEventAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Update Event", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryUpdateEventAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Delete Event", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryDeleteEventAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Messages", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetMessages });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Send Message", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TrySendMailAsync });
 
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Me", RunStoryAsync = UserStories.TryGetMeAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Read Users", RunStoryAsync = UserStories.TryGetUsersAsync });
-
-            // Comment the TryCreateUserAsync story if you're not running this sample with an admin work account.
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create User", RunStoryAsync = UserStories.TryCreateUserAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Drive", RunStoryAsync = UserStories.TryGetCurrentUserDriveAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Events", RunStoryAsync = UserStories.TryGetEventsAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Event", RunStoryAsync = UserStories.TryCreateEventAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Update Event", RunStoryAsync = UserStories.TryUpdateEventAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Delete Event", RunStoryAsync = UserStories.TryDeleteEventAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Messages", RunStoryAsync = UserStories.TryGetMessages });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Send Message", RunStoryAsync = UserStories.TrySendMailAsync });
-
-            // Comment the TryGetCurrentUserManagerAsync, TryGetDirectReportsAsync, and TryGetCurrentUserPhotoAsync stories if you're running this sample with a consumer account.
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Manager", RunStoryAsync = UserStories.TryGetCurrentUserManagerAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Directs", RunStoryAsync = UserStories.TryGetDirectReportsAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Photo", RunStoryAsync = UserStories.TryGetCurrentUserPhotoAsync });
-
-            // Comment the TryGetCurrentUserGroupsAsync story if you're not running this sample with an admin work account.
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get User Groups", RunStoryAsync = UserStories.TryGetCurrentUserGroupsAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get User Files", RunStoryAsync = UserStories.TryGetCurrentUserFilesAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Text File", RunStoryAsync = UserStories.TryCreateFileAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Download File", RunStoryAsync = UserStories.TryDownloadFileAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Update File", RunStoryAsync = UserStories.TryUpdateFileAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Rename File", RunStoryAsync = UserStories.TryRenameFileAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Delete File", RunStoryAsync = UserStories.TryDeleteFileAsync });
-
-            // Comment the TryCreateFolderAsync story if you're running this sample with a consumer account.
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Folder", RunStoryAsync = UserStories.TryCreateFolderAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get User Files", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetCurrentUserFilesAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Text File", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryCreateFileAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Download File", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryDownloadFileAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Update File", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryUpdateFileAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Rename File", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryRenameFileAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Delete File", ScopeGroup = "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryDeleteFileAsync });
 
 
-            // Group stories
-            // NOTE: All of these snippets will fail for lack of permissions if you're running the sample with a non-admin work account
-            // or any consumer account. Comment these lines if you're not using an admin work account.
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get All Groups", RunStoryAsync = GroupStories.TryGetGroupsAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get a Group", RunStoryAsync = GroupStories.TryGetGroupAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get Members", RunStoryAsync = GroupStories.TryGetGroupMembersAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get Owners", RunStoryAsync = GroupStories.TryGetGroupOwnersAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Create Group", RunStoryAsync = GroupStories.TryCreateGroupAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Update Group", RunStoryAsync = GroupStories.TryUpdateGroupAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Delete Group", RunStoryAsync = GroupStories.TryDeleteGroupAsync });
+            // Stories applicable only to work or school accounts
+            // NOTE: All of these snippets will fail for lack of permissions if you sign into the sample with a personal (consumer) account
+
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Manager", ScopeGroup = "Applicable to work accounts only", RunStoryAsync = UserStories.TryGetCurrentUserManagerAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Directs", ScopeGroup = "Applicable to work accounts only", RunStoryAsync = UserStories.TryGetDirectReportsAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Photo", ScopeGroup = "Applicable to work accounts only", RunStoryAsync = UserStories.TryGetCurrentUserPhotoAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Folder", ScopeGroup = "Applicable to work accounts only", RunStoryAsync = UserStories.TryCreateFolderAsync });
 
 
-            // Organization stories
+            // Stories applicable only to work or school accounts with admin access
+            // NOTE: All of these snippets will fail for lack of permissions if you sign into the sample with a non-admin work account
+            // or any consumer account. 
 
-            //StoryCollection.Add(new StoryDefinition() { GroupName = "Organization", Title = "Get Org Drives", RunStoryAsync = OrganizationStories.TryGetDrivesAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create User", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = UserStories.TryCreateUserAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get User Groups", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = UserStories.TryGetCurrentUserGroupsAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get All Groups", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = GroupStories.TryGetGroupsAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get a Group", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = GroupStories.TryGetGroupAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get Members", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = GroupStories.TryGetGroupMembersAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Get Owners", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = GroupStories.TryGetGroupOwnersAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Create Group", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = GroupStories.TryCreateGroupAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Update Group", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = GroupStories.TryUpdateGroupAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Groups", Title = "Delete Group", ScopeGroup = "Applicable to work accounts with admin rights", RunStoryAsync = GroupStories.TryDeleteGroupAsync });
 
 
-            var result = from story in StoryCollection group story by story.GroupName into api orderby api.Key select api;
+            var result = from story in StoryCollection group story by story.ScopeGroup into api orderby api.Key select api;
             StoriesByApi.Source = result;
         }
 
