@@ -61,15 +61,15 @@ This sample requires the following:
 
 2.	If you are planning on signing into the sample with a work or school account that does not have admin permissions, you'll need to comment out  code that requests scopes that require admin permissions. If you don't comment out these lines, you won't be able to sign in with your work or school account (if you sign in with a personal account, these scope requests are ignored.)
 
-In the `GetTokenForUserAsync()` method of the `AuthenticationHelper.cs` file, comment out the following scope requests:
+	In the `GetTokenForUserAsync()` method of the `AuthenticationHelper.cs` file, comment out the following scope requests:
 
-```
-	"https://graph.microsoft.com/Directory.AccessAsUser.All",
-    "https://graph.microsoft.com/User.ReadWrite.All",
-    "https://graph.microsoft.com/Group.ReadWrite.All",
-```
+	```
+		"https://graph.microsoft.com/Directory.AccessAsUser.All",
+	    "https://graph.microsoft.com/User.ReadWrite.All",
+	    "https://graph.microsoft.com/Group.ReadWrite.All",
+	```
 
-2. Press F5 to build and debug. Run the solution and sign in with either your personal or work or school account.
+3. Press F5 to build and debug. Run the solution and sign in with either your personal or work or school account.
 
 <a name="run"></a>
 ## Run the sample
