@@ -74,6 +74,7 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Update File", ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryUpdateFileAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Rename File", ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryRenameFileAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Delete File", ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryDeleteFileAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Folder", ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryCreateFolderAsync });
 
 
             // Stories applicable only to work or school accounts
@@ -82,7 +83,6 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Manager", ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetCurrentUserManagerAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Directs", ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetDirectReportsAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Photo", ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetCurrentUserPhotoAsync });
-            StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Create Folder", ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryCreateFolderAsync });
 
 
             // Stories applicable only to work or school accounts with admin access
