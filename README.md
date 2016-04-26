@@ -1,4 +1,4 @@
-﻿# Microsoft Graph SDK UWP Snippets Library 
+# Microsoft Graph SDK UWP Snippets Library 
 
 **Table of contents**
 
@@ -25,7 +25,7 @@ In addition, the sample uses the [Microsoft Authentication Library (MSAL)](https
 
 These snippets are simple and self-contained, and you can copy and paste them into your own code, whenever appropriate, or use them as a resource for learning how to use the Microsoft Graph client library.
 
-**Note:** If possible, please use this sample with a "non-work" or test account. With the current version of the project, it does not always clean up the created objects in your mailbox and calendar. At this time you'll have to manually remove sample mails and calendar events. 
+**Note:** If possible, please use this sample with a "non-work" or test account. The sample does not always clean up the created objects in your mailbox and calendar. At this time you'll have to manually remove sample mails and calendar events. Also note that the snippets that get and send messages and that get, create, update, and delete events won't work with all personal accounts. These operations will eventually work when those accounts are updated to work with the v2 authentication endpoint.
 
  
 
@@ -46,7 +46,7 @@ This sample requires the following:
 2. Select **Add an app**.  
 3. Enter a name for the app, and select **Create application**. The registration page displays, listing the properties of your app.  
 4. Under **Platforms**, select **Add platform**.  
-5. Select **Mobile platform**.  
+5. Select **Mobile application**.  
 6. Copy both the Client Id (App Id) and Redirect URI values to the clipboard. You'll need to enter these values into the sample app. The app id is a unique identifier for your app. The redirect URI is a unique URI provided by Windows 10 for each application to ensure that messages sent to that URI are only sent to that application.   
 7. Select **Save**.  
 
@@ -82,11 +82,11 @@ When launched, the app displays a series of boxes representing common user tasks
 
 Select the stories you want to execute, and choose the run button. You'll be prompted to log in with your work or school or personal account. Be aware that if you log in with an account that doesn't have applicable permissions for the stories you've selected(for example, if you select stories that are applicable only to a work or school account, and then log in with a personal account), those stories will fail.
 
-Each story turns green if it succeeds, and red if it fails. Additional information is sent to the Output window. 
+Each story turns green if it succeeds, and red if it fails. Additional information is sent to the Output window. Select **Ctrl + W,O** to view the Output window and see information about the operation.
 
 <a name="#how-the-sample-affects-your-tenant-data"></a>
 ##How the sample affects your tenant data
-This sample runs commands that create, read, update, or delete data. When running commands that delete or edit data, the sample creates fake entities. The fake entities are deleted or edited so that your actual tenant data is unaffected. The sample will leave behind fake entities on your tenant.
+This sample runs commands that create, read, update, or delete data. When running commands that delete or edit data, the sample creates test entities. The sample will leave behind some of these entities on your tenant.
 
 <a name="add-a-snippet"></a>
 ##Add a snippet
@@ -100,41 +100,46 @@ If you have a snippet of your own that you would like to run in this project, ju
 
 1. **Add your snippet to the snippets file.** Be sure to include a try/catch block. 
 
-        public static async Task<string> GetMeAsync()
-        {
-            string currentUserName = null;
-
-            try
-            {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
-
-                var currentUserObject = await graphClient.Me.Request().GetAsync();
-                currentUserName = currentUserObject.DisplayName;
-
-                if ( currentUserName != null)
-                {
-                    Debug.WriteLine("Got user: " + currentUserName);
-                }
-
-            }
+	```cs
+	try
+	{
+		var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+	
+		var currentUserObject = await graphClient.Me.Request().GetAsync();
+		currentUserName = currentUserObject.DisplayName;
+	
+		if ( currentUserName != null)
+		{
+			Debug.WriteLine("Got user: " + currentUserName);
+		}
+	
+	}
+	
+	catch (ServiceException e)
+	{
+		Debug.WriteLine("We could not get the current user: " + e.Error.Message);
+		return null;
+	}
+	```
 
 2. **Create a story that uses your snippet and add it to the associated stories file.** For example, the `TryGetMeAsync()` story uses the `GetMeAsync()` snippet inside the Users\UserStories.cs file:
 
-        public static async Task<bool> TryGetMeAsync()
-        {
-            var currentUser = await UserSnippets.GetMeAsync();
-
-            return currentUser != null;
-        }        
-
-
-Sometimes your story will need to run snippets in addition to the one that you're implementing. For example, if you want to update an event, you first need to use the `CreateEventAsync()` method to create an event. Then you can update it. Always be sure to use snippets that already exist in the snippets file. If the operation you need doesn't exist, you'll have to create it and then include it in your story. It's a best practice to delete any entities that you create in a story, especially if you're working on anything other than a test or developer tenant.
+	```cs
+	public static async Task<bool> TryGetMeAsync()
+	{
+		var currentUser = await UserSnippets.GetMeAsync();
+	
+		return currentUser != null;
+	}       
+	```
+	
+	Sometimes your story will need to run snippets in addition to the one that you're implementing. For example, if you want to update an event, you can use the `CreateEventAsync()` method to create an event. Then you can update it. Always be sure to use snippets that already exist in the snippets file. If the operation you need doesn't exist, you'll have to create it and then include it in your story. It's a best practice to delete any entities that you create in a story, especially if you're working on anything other than a test or developer tenant.
 
 3. **Add your story to the story collection in MainPageXaml.cs** (inside the `CreateStoryList()` method):
 
-	`StoryCollection.Add(new StoryDefinition() 
-		{ GroupName = "Users", Title = "Get Me",  
-			ScopeGroup= "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetMeAsync });`
+	```cs
+	StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Me", ScopeGroup= "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetMeAsync });
+	```
 
 Now you can test your snippet. When you run the app, your snippet will appear as a new box in the grid. Select the box for your snippet, and then run it. Use this as an opportunity to debug your snippet.
 
@@ -151,8 +156,6 @@ Your feedback is important to us. Connect with us on [Stack Overflow](http://sta
 ## Additional resources ##
 
 - [Microsoft Graph overview](http://graph.microsoft.io)
-- [Office 365 APIs platform overview](https://msdn.microsoft.com/office/office365/howto/platform-development-overview)
-- [Office 365 API code samples and videos](https://msdn.microsoft.com/office/office365/howto/starter-projects-and-code-samples)
 - [Office developer code samples](http://dev.office.com/code-samples)
 - [Office dev center](http://dev.office.com/)
 

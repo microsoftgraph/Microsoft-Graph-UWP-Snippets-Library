@@ -36,9 +36,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get groups: " + e.Message);
+                Debug.WriteLine("We could not get groups: " + e.Error.Message);
                 return null;
             }
 
@@ -60,9 +60,9 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the specified group: " + e.Message);
+                Debug.WriteLine("We could not get the specified group: " + e.Error.Message);
                 return null;
 
             }
@@ -99,9 +99,9 @@ namespace Microsoft_Graph_Snippets_SDK
                 }
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the group members: " + e.Message);
+                Debug.WriteLine("We could not get the group members: " + e.Error.Message);
                 return null;
             }
 
@@ -138,9 +138,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the group owners: " + e.Message);
+                Debug.WriteLine("We could not get the group owners: " + e.Error.Message);
                 return null;
             }
 
@@ -175,9 +175,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not create a group: " + e.Message);
+                Debug.WriteLine("We could not create a group: " + e.Error.Message);
                 return null;
             }
 
@@ -205,9 +205,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not update the group: " + e.Message);
+                Debug.WriteLine("We could not update the group: " + e.Error.Message);
                 groupUpdated = false;
             }
 
@@ -231,9 +231,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not delete the group: " + e.Message);
+                Debug.WriteLine("We could not delete the group: " + e.Error.Message);
                 eventDeleted = false;
             }
 

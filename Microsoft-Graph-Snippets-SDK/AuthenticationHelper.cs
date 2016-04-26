@@ -23,8 +23,8 @@ namespace Microsoft_Graph_Snippets_SDK
         static string returnUrl = App.Current.Resources["ida:ReturnUrl"].ToString();
 
 
-        public static PublicClientApplication PublicClientApp = null;
-        public static string TokenForUser;
+        public static PublicClientApplication IdentityClientApp = null;
+        public static string TokenForUser = null;
         public static DateTimeOffset expiration;
 
         private static GraphServiceClient graphClient = null;
@@ -35,9 +35,7 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             if (graphClient == null)
             {
-                //*********************************************************************
-                // setup Microsoft Graph Client for user...
-                //*********************************************************************
+                // Create Microsoft Graph client.
                 try
                 {
                     graphClient = new GraphServiceClient(
@@ -81,20 +79,20 @@ namespace Microsoft_Graph_Snippets_SDK
                         "https://graph.microsoft.com/Mail.ReadWrite",
                         "https://graph.microsoft.com/Files.ReadWrite",
 
-                        // Admin-only scopes. Comment these out if you're running the sample with a non-admin work account.
+                        // Admin-only scopes. Uncomment these if you're running the sample with an admin work account.
                         // You won't be able to sign in with a non-admin work account if you request these scopes.
                         // These scopes will be ignored if you leave them uncommented and run the sample with a consumer account.
                         // See the MainPage.xaml.cs file for all of the operations that won't work if you're not running the 
                         // sample with an admin work account.
-                        "https://graph.microsoft.com/Directory.AccessAsUser.All",
-                        "https://graph.microsoft.com/User.ReadWrite.All",
-                        "https://graph.microsoft.com/Group.ReadWrite.All",
+                        //"https://graph.microsoft.com/Directory.AccessAsUser.All",
+                        //"https://graph.microsoft.com/User.ReadWrite.All",
+                        //"https://graph.microsoft.com/Group.ReadWrite.All"
 
 
                     };
 
-                PublicClientApp = new PublicClientApplication(clientId);
-                AuthenticationResult authResult = await PublicClientApp.AcquireTokenAsync(scopes);
+                IdentityClientApp = new PublicClientApplication(clientId);
+                AuthenticationResult authResult = await IdentityClientApp.AcquireTokenAsync(scopes);
 
                 TokenForUser = authResult.Token;
                 expiration = authResult.ExpiresOn;
@@ -109,11 +107,12 @@ namespace Microsoft_Graph_Snippets_SDK
         /// </summary>
         public static void SignOut()
         {
-            foreach (var user in PublicClientApp.Users)
+            foreach (var user in IdentityClientApp.Users)
             {
                 user.SignOut();
             }
             graphClient = null;
+            TokenForUser = null;
 
         }
 

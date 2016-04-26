@@ -14,7 +14,7 @@ namespace Microsoft_Graph_Snippets_SDK
     class UserStories
     {
         private static readonly string STORY_DATA_IDENTIFIER = Guid.NewGuid().ToString();
-        private static readonly string DEFAULT_MESSAGE_BODY = "This message was sent from the Office 365 UWP Unified API Snippets project";
+        private static readonly string DEFAULT_MESSAGE_BODY = "This message was sent from the Microsoft Graph SDK UWP Snippets project";
         public static ApplicationDataContainer _settings = ApplicationData.Current.RoamingSettings;
 
         public static async Task<bool> TryGetMeAsync()
