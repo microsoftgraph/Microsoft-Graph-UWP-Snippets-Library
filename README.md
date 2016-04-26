@@ -138,7 +138,9 @@ If you have a snippet of your own that you would like to run in this project, ju
 3. **Add your story to the story collection in MainPageXaml.cs** (inside the `CreateStoryList()` method):
 
 	```cs
-	StoryCollection.Add(new StoryDefinition() { GroupName = "Users", Title = "Get Me", ScopeGroup= "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetMeAsync });
+	StoryCollection.Add(new StoryDefinition() 
+		{ GroupName = "Users", Title = "Get Me",  
+			ScopeGroup= "Applicable to personal or work accounts", RunStoryAsync = UserStories.TryGetMeAsync });
 	```
 
 Now you can test your snippet. When you run the app, your snippet will appear as a new box in the grid. Select the box for your snippet, and then run it. Use this as an opportunity to debug your snippet.
