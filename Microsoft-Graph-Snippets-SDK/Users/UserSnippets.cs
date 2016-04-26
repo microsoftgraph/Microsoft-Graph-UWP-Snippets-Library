@@ -697,7 +697,7 @@ namespace Microsoft_Graph_Snippets_SDK
             try
             {
                 var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
-                var createdFolder = await graphClient.Me.Drive.Items.Request().AddAsync(folderToCreate);
+                var createdFolder = await graphClient.Me.Drive.Root.Children.Request().AddAsync(folderToCreate);
 
                 if (createdFolder != null)
                 {
