@@ -37,9 +37,9 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the current user: " + e.Message);
+                Debug.WriteLine("We could not get the current user: " + e.Error.Message);
                 return null;
 
             }
@@ -67,9 +67,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get users: " + e.Message);
+                Debug.WriteLine("We could not get users: " + e.Error.Message);
                 return null;
             }
 
@@ -112,9 +112,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not create a user: " + e.Message);
+                Debug.WriteLine("We could not create a user: " + e.Error.Message);
                 return null;
             }
 
@@ -143,9 +143,9 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the current user drive: " + e.Message);
+                Debug.WriteLine("We could not get the current user drive: " + e.Error.Message);
                 return null;
 
             }
@@ -172,9 +172,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the current user's events: " + e.Message);
+                Debug.WriteLine("We could not get the current user's events: " + e.Error.Message);
                 return null;
             }
 
@@ -234,9 +234,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not create an event: " + e.Message);
+                Debug.WriteLine("We could not create an event: " + e.Error.Message);
                 return null;
             }
 
@@ -265,9 +265,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not update the event: " + e.Message);
+                Debug.WriteLine("We could not update the event: " + e.Error.Message);
                 eventUpdated = false;
             }
 
@@ -289,9 +289,9 @@ namespace Microsoft_Graph_Snippets_SDK
                 eventDeleted = true;
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not delete the event: " + e.Message);
+                Debug.WriteLine("We could not delete the event: " + e.Error.Message);
                 eventDeleted = false;
             }
 
@@ -318,9 +318,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get messages: " + e.Message);
+                Debug.WriteLine("We could not get messages: " + e.Error.Message);
                 return null;
             }
 
@@ -362,9 +362,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not send the message. The request returned this status code: " + e.Message);
+                Debug.WriteLine("We could not send the message. The request returned this status code: " + e.Error.Message);
                 emailSent = false;
             }
 
@@ -386,9 +386,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the current user's manager: " + e.Message);
+                Debug.WriteLine("We could not get the current user's manager: " + e.Error.Message);
                 return null;
 
             }
@@ -419,9 +419,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get direct reports: " + e.Message);
+                Debug.WriteLine("We could not get direct reports: " + e.Error.Message);
                 return null;
             }
 
@@ -445,9 +445,9 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get the current user photo: " + e.Message);
+                Debug.WriteLine("We could not get the current user photo: " + e.Error.Message);
                 return null;
 
             }
@@ -476,9 +476,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get user groups: " + e.Message);
+                Debug.WriteLine("We could not get user groups: " + e.Error.Message);
                 return null;
             }
 
@@ -503,9 +503,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not get user files: " + e.Message);
+                Debug.WriteLine("We could not get user files: " + e.Error.Message);
                 return null;
             }
 
@@ -551,16 +551,10 @@ namespace Microsoft_Graph_Snippets_SDK
 
                 else
                 {
-                    Debug.WriteLine("We could not create the file. The request returned this status code: " + se.Message);
+                    Debug.WriteLine("We could not create the file. The request returned this status code: " + se.Error.Message);
                     return null;
                 }
 
-            }
-
-            catch (Exception e)
-            {
-                Debug.WriteLine("We could not create the file. The request returned this status code: " + e.Message);
-                return null;
             }
 
             return createdFileId;
@@ -581,9 +575,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not download the file. The request returned this status code: " + e.Message);
+                Debug.WriteLine("We could not download the file. The request returned this status code: " + e.Error.Message);
                 return null;
             }
 
@@ -630,12 +624,6 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
-            {
-                Debug.WriteLine("We could not update the file. The request returned this status code: " + e.Message);
-                fileUpdated = false;
-            }
-
             return fileUpdated;
         }
 
@@ -654,9 +642,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not delete the file. The request returned this status code: " + e.Message);
+                Debug.WriteLine("We could not delete the file. The request returned this status code: " + e.Error.Message);
                 fileDeleted = false;
             }
 
@@ -685,9 +673,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not rename the file. The request returned this status code: " + e.Message);
+                Debug.WriteLine("We could not rename the file. The request returned this status code: " + e.Error.Message);
                 fileRenamed = false;
             }
 
@@ -721,9 +709,9 @@ namespace Microsoft_Graph_Snippets_SDK
 
             }
 
-            catch (Exception e)
+            catch (ServiceException e)
             {
-                Debug.WriteLine("We could not create the folder. The request returned this status code: " + e.Message);
+                Debug.WriteLine("We could not create the folder. The request returned this status code: " + e.Error.Message);
                 return null;
             }
 

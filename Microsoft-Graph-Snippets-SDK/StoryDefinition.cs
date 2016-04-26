@@ -9,16 +9,22 @@ using System.Threading.Tasks;
 
 namespace Microsoft_Graph_Snippets_SDK
 {
+
+    //All of the properties of a story.
     public class StoryDefinition : ViewModelBase
     {
+        //The name of the group to which the story belongs.
         public string GroupName { get; set; }
+        //Display title of the story.
         public string Title { get; set; }
 
+        //The permission scope group to which the story belongs.
         public string ScopeGroup { get; set; }
 
-        // Delegate method to call
+        // Delegate method to call.
         public Func<Task<bool>> RunStoryAsync { get; set; }
 
+        //Specifies whether the story is running.
         bool _isRunning = false;
         public bool IsRunning
         {
@@ -32,6 +38,7 @@ namespace Microsoft_Graph_Snippets_SDK
             }
         }
 
+        //Success or failure result.
         bool? _result = null;
         public bool? Result
         {
@@ -45,6 +52,7 @@ namespace Microsoft_Graph_Snippets_SDK
             }
         }
 
+        //Length of time the story takes to run.
         long? _durationMS = 0;
         public long? DurationMS
         {
