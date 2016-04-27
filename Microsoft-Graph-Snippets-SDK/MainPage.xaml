@@ -16,6 +16,30 @@ See LICENSE in the project root for license information. -->
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wideView">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="appTitle.FontSize" Value="{ThemeResource TextStyleExtraLargeFontSize}"/>
+                        <Setter Target="appTitle.Text" Value="Microsoft Graph Snippets" />
+                        <Setter Target="appTitle.Margin" Value="40,0,0,0"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="narrowView">
+                    <VisualState.Setters>
+                        <Setter Target="appTitle.FontSize" Value="12" />
+                        <Setter Target="appTitle.Text" Value="MS Graph Snippets" />
+                        <Setter Target="appTitle.Margin" Value="40,10,0,0"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -64,11 +88,10 @@ See LICENSE in the project root for license information. -->
     <Page.TopAppBar>
         <CommandBar HorizontalAlignment="Center">
             <CommandBar.Content>
-                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="appTitle" Text="Microsoft Graph Snippets"
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="appTitle"
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" 
                        TextWrapping="Wrap"
-                       FontSize="{ThemeResource TextStyleExtraLargeFontSize}" Margin="40,0,0,0"
                        />
 
             </CommandBar.Content>
