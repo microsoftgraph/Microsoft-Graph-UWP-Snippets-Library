@@ -24,7 +24,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
                 var currentUserObject = await graphClient.Me.Request().GetAsync();
                 currentUserName = currentUserObject.DisplayName;
@@ -55,7 +55,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 users = await graphClient.Users.Request().GetAsync();
 
                 foreach ( var user in users)
@@ -88,7 +88,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
                 //Get tenant domain from the Organization object. We use this domain to create the 
                 //user's email address.
@@ -129,7 +129,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
                 var currentUserDrive = await graphClient.Me.Drive.Request().GetAsync();
                 currentUserDriveId = currentUserDrive.Id;
@@ -162,7 +162,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 events = await graphClient.Me.Events.Request().GetAsync();
 
                 foreach (var myEvent in events)
@@ -223,7 +223,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var createdEvent = await graphClient.Me.Events.Request().AddAsync(newEvent);
                 createdEventId = createdEvent.Id;
 
@@ -251,7 +251,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var eventToUpdate = new Event();
                 eventToUpdate.Subject = "Sync of the week";
                 //eventToUpdate.IsAllDay = true;
@@ -282,7 +282,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var eventToDelete = await graphClient.Me.Events[eventId].Request().GetAsync();
                 await graphClient.Me.Events[eventId].Request().DeleteAsync();
                 Debug.WriteLine("Deleted event: " + eventToDelete.Id);
@@ -306,7 +306,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 messages = await graphClient.Me.Messages.Request().GetAsync();
 
                 foreach ( var message in messages)
@@ -355,7 +355,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 await graphClient.Me.SendMail(email, true).Request().PostAsync();
                 Debug.WriteLine("Message sent");
                 emailSent = true;
@@ -379,7 +379,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var currentUserManager = await graphClient.Me.Manager.Request().GetAsync();
                 currentUserManagerId = currentUserManager.Id;
                 Debug.WriteLine("Got manager: " + currentUserManagerId);
@@ -406,7 +406,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 directReports =  await graphClient.Me.DirectReports.Request().GetAsync();
 
 
@@ -437,7 +437,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var userPhoto = await graphClient.Me.Photo.Request().GetAsync();
                 currentUserPhotoId = userPhoto.Id;
                 Debug.WriteLine("Got user photo: " + currentUserPhotoId);
@@ -464,7 +464,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 memberOfGroups = await graphClient.Me.MemberOf.Request().GetAsync();
 
                 foreach (var group in memberOfGroups)
@@ -492,7 +492,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 files = await graphClient.Me.Drive.Root.Children.Request().GetAsync();
                 foreach (DriveItem item in files)
                 {
@@ -527,7 +527,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var createdFile = await graphClient.Me.Drive.Root.ItemWithPath(fileName).Content.Request().PutAsync<DriveItem>(fileContentStream);
                 createdFileId = createdFile.Id;
 
@@ -542,7 +542,7 @@ namespace Microsoft_Graph_Snippets_SDK
             {
                 if (se.InnerException.Message.Contains("Value cannot be null"))
                 {
-                    var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                    var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                     var createdFile = await graphClient.Me.Drive.Root.ItemWithPath(fileName).Request().GetAsync();
                     createdFileId = createdFile.Id;
                     return createdFileId;
@@ -567,7 +567,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var downloadedFile = await graphClient.Me.Drive.Items[fileId].Content.Request().GetAsync();
                 fileContent = downloadedFile;
                 Debug.WriteLine("Downloaded file content for file: " + fileId);
@@ -591,7 +591,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
                 //Read fileContent string into a stream that gets passed as the file content
                 byte[] byteArray = Encoding.ASCII.GetBytes(fileContent);
@@ -634,7 +634,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var fileToDelete = graphClient.Me.Drive.Items[fileId].Request().GetAsync();
                 await graphClient.Me.Drive.Items[fileId].Request().DeleteAsync();
                 Debug.WriteLine("Deleted file Id: " + fileToDelete.Id);
@@ -658,7 +658,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
                 var fileToRename = new DriveItem();
                 fileToRename.Name = newFileName;
@@ -696,7 +696,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
                 var createdFolder = await graphClient.Me.Drive.Root.Children.Request().AddAsync(folderToCreate);
 
                 if (createdFolder != null)

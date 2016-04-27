@@ -19,7 +19,7 @@ namespace Microsoft_Graph_Snippets_SDK
         // Returns all of the groups in your tenant's directory.
         public static async Task<IGraphServiceGroupsCollectionPage> GetGroupsAsync()
         {
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
             
             try
             {
@@ -50,7 +50,7 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             string groupName = null;
             //JObject jResult = null;
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
             try
             {
                 var group = await graphClient.Groups[groupId].Request().GetAsync();
@@ -74,7 +74,7 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             IGroupMembersCollectionWithReferencesPage members = null;
 
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
             try
             {
@@ -112,7 +112,7 @@ namespace Microsoft_Graph_Snippets_SDK
         public static async Task<IGroupOwnersCollectionWithReferencesPage> GetGroupOwnersAsync(string groupId)
         {
             IGroupOwnersCollectionWithReferencesPage owners = null;
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
             try
             {
@@ -154,7 +154,7 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             //JObject jResult = null;
             string createdGroupId = null;
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
 
             try
@@ -190,7 +190,7 @@ namespace Microsoft_Graph_Snippets_SDK
         public static async Task<bool> UpdateGroupAsync(string groupId)
         {
             bool groupUpdated = false;
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
             try
             {
@@ -220,7 +220,7 @@ namespace Microsoft_Graph_Snippets_SDK
         public static async Task<bool> DeleteGroupAsync(string groupId)
         {
             bool eventDeleted = false;
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 
             try
             {

@@ -78,7 +78,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
         public static async Task<bool> TrySendMailAsync()
         {
-            var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
             var currentUser = await graphClient.Me.Request().GetAsync();
             return await UserSnippets.SendMessageAsync(
                     STORY_DATA_IDENTIFIER,
