@@ -31,7 +31,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
         // Get an access token for the given context and resourceId. An attempt is first made to 
         // acquire the token silently. If that fails, then we try to acquire the token by prompting the user.
-        public static GraphServiceClient GetAuthenticatedClientAsync()
+        public static GraphServiceClient GetAuthenticatedClient()
         {
             if (graphClient == null)
             {
