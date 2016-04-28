@@ -59,14 +59,14 @@ This sample requires the following:
 1. After you've loaded the solution in Visual Studio, configure the sample to use the client id and redirectURI that you registered by adding the corresponding values for these keys in the Application.Resources node of the App.xaml file.
 ![Office 365 UWP Microsoft Graph connect sample](/readme-images/appId_and_redirectURI.png "Client ID value in App.xaml file")`
 
-2.	If you are planning on signing into the sample with a work or school account that does not have admin permissions, you'll need to comment out  code that requests scopes that require admin permissions. If you don't comment out these lines, you won't be able to sign in with your work or school account (if you sign in with a personal account, these scope requests are ignored.)
+2.	If you are planning on signing into the sample with a work or school account that does not have admin permissions, you'll need to leave code that requests scopes requiring admin permissions commented out. If these lines aren't commented, you won't be able to sign in with your non-admin work or school account (if you sign in with a personal account, these scope requests are ignored.)
 
-	In the `GetTokenForUserAsync()` method of the `AuthenticationHelper.cs` file, comment out the following scope requests:
+	In the `GetTokenForUserAsync()` method of the `AuthenticationHelper.cs` file, see the following scope requests. Leave these commented unless you're using a work or school account that has admin permissions:
 
 	```
-		"https://graph.microsoft.com/Directory.AccessAsUser.All",
-	    "https://graph.microsoft.com/User.ReadWrite.All",
-	    "https://graph.microsoft.com/Group.ReadWrite.All",
+		//"https://graph.microsoft.com/Directory.AccessAsUser.All",
+	    //"https://graph.microsoft.com/User.ReadWrite.All",
+	    //"https://graph.microsoft.com/Group.ReadWrite.All",
 	```
 
 3. Press F5 to build and debug. Run the solution and sign in with either your personal or work or school account.
