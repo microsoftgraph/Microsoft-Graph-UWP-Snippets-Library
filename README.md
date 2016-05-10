@@ -19,7 +19,7 @@ This sample contains a repository of code snippets that show how to use the Micr
 
 This repository shows you how to access multiple resources, including Microsoft Azure Active Directory (AD) and the Office 365 APIs, by making HTTP requests to the Microsoft Graph API in a Windows 10 universal app. 
 
-In addition, the sample uses the [Microsoft Authentication Library (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client/) for authentication. The MSAL SDK provides features for working with the [v2 authentication endpoint](), which enables developers to write a single code flow that handles authentication for both users' work or school (Azure Active Directory)  or personal (Microsoft) accounts.
+In addition, the sample uses the [Microsoft Authentication Library (MSAL)](https://www.nuget.org/packages/Microsoft.Identity.Client/) for authentication. The MSAL SDK provides features for working with the [v2 authentication endpoint](https://msdn.microsoft.com/en-us/office/office365/howto/authenticate-Office-365-APIs-using-v2), which enables developers to write a single code flow that handles authentication for both users' work or school (Azure Active Directory)  or personal (Microsoft) accounts.
 
  > **Note** The MSAL SDK is currently in prerelease, and as such should not be used in production code. It is used here for illustrative purposes only.
 
