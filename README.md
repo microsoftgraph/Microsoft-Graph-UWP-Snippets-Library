@@ -104,7 +104,7 @@ If you have a snippet of your own that you would like to run in this project, ju
 	```cs
 	try
 	{
-		var graphClient = AuthenticationHelper.GetAuthenticatedClientAsync();
+		var graphClient = AuthenticationHelper.GetAuthenticatedClient();
 	
 		var currentUserObject = await graphClient.Me.Request().GetAsync();
 		currentUserName = currentUserObject.DisplayName;
