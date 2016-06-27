@@ -45,6 +45,8 @@ namespace Microsoft_Graph_Snippets_SDK
                             {
                                 var token = await GetTokenForUserAsync();
                                 requestMessage.Headers.Authorization = new AuthenticationHeaderValue("bearer", token);
+                                // This header has been added to identify our sample in the Microsoft Graph service.  If extracting this code for your project please remove.
+                                requestMessage.Headers.Add("SampleID", "uwp-csharp-snippets-sample");
 
                             }));
                     return graphClient;
