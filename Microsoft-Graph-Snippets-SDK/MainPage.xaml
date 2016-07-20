@@ -54,6 +54,7 @@ See LICENSE in the project root for license information. -->
                             <StackPanel>
                                 <ProgressRing IsActive="{Binding IsRunning}" Margin="2" Foreground="White" Height="10" Width="10"/>
                                 <TextBlock Text="{Binding Title}" Margin="6"/>
+                                <TextBlock Text="{Binding Result}" Margin="6"/>
                             </StackPanel>
                         </Border>
                     </DataTemplate>
