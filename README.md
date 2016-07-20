@@ -146,7 +146,12 @@ If you have a snippet of your own that you would like to run in this project, ju
 
 Now you can test your snippet. When you run the app, your snippet will appear as a new box in the grid. Select the box for your snippet, and then run it. Use this as an opportunity to debug your snippet.
 
+<a name="contributing"></a>
+## Contributing ##
 
+If you'd like to contribute to this sample, see [CONTRIBUTING.MD](/CONTRIBUTING.md).
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 <a name="questions"></a>
 ## Questions and comments
