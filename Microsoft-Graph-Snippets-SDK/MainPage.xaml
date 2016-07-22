@@ -96,9 +96,9 @@ See LICENSE in the project root for license information. -->
                        />
 
             </CommandBar.Content>
-            <AppBarButton Icon="Play" Label="run selected" Click="RunSelectedStories_Click" />
-            <AppBarButton Icon="ClearSelection" Label="clear selection" Click="ClearSelection_Click" />
-            <AppBarButton Icon="Clear" Label="disconnect" Click="Disconnect_Click" />
+            <AppBarButton Icon="Play" x:Name="RunSelected" Click="RunSelectedStories_Click" />
+            <AppBarButton Icon="ClearSelection" x:Name="ClearSelection"  Click="ClearSelection_Click" />
+            <AppBarButton Icon="Clear" x:Name="Disconnect"  Click="Disconnect_Click" />
         </CommandBar>
 
     </Page.TopAppBar>
