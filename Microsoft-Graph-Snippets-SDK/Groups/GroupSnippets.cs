@@ -78,25 +78,16 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var group = await graphClient.Groups[groupId].Request().GetAsync();
+                var group = await graphClient.Groups[groupId].Request().Expand("members").GetAsync();
                 members = group.Members;
 
-                //Work around the fact that some groups don't have owners.
-                //Return a non-null collection whenever the call has worked
-                //but the group has no owners.
-                if (members != null)
-                {
-                    foreach (var member in members)
-                    {
-                        Debug.WriteLine("Member Id:" + member.Id);
 
-                    }
+                foreach (var member in members)
+                {
+                    Debug.WriteLine("Member Id:" + member.Id);
+
                 }
 
-                else
-                {
-                    members = new GroupMembersCollectionWithReferencesPage();
-                }
             }
 
             catch (ServiceException e)
@@ -117,24 +108,13 @@ namespace Microsoft_Graph_Snippets_SDK
             try
             {
 
-                var group = await graphClient.Groups[groupId].Request().GetAsync();
+                var group = await graphClient.Groups[groupId].Request().Expand("owners").GetAsync();
                 owners = group.Owners;
 
-
-                //Work around the fact that some groups don't have owners.
-                //Return a non-null collection whenever the call has worked
-                //but the group has no owners.
-                if (owners != null)
+                foreach (var owner in owners)
                 {
-                    foreach (var owner in owners)
-                    {
-                        Debug.WriteLine("Owner Id:" + owner.Id);
-                    }
+                    Debug.WriteLine("Owner Id:" + owner.Id);
                 }
-                else
-                {
-                    owners = new GroupOwnersCollectionWithReferencesPage();
-                } 
 
             }
 
