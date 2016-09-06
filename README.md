@@ -1,4 +1,4 @@
-# Microsoft Graph UWP Snippets Sample
+# Microsoft Graph UWP Snippets Sample (SDK)
 
 **Table of contents**
 
