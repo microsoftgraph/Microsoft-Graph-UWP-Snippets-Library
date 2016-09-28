@@ -81,7 +81,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
         public static async Task<string> CreateUserAsync(string userName)
         {
-            string createdUserName = null;
+            string createdUserId = null;
 
 
 
@@ -107,8 +107,8 @@ namespace Microsoft_Graph_Snippets_SDK
 
                 });
 
-                createdUserName = user.DisplayName;
-                Debug.WriteLine("Created user: " + createdUserName);
+                createdUserId = user.Id;
+                Debug.WriteLine("Created user: " + createdUserId);
 
             }
 
@@ -118,7 +118,7 @@ namespace Microsoft_Graph_Snippets_SDK
                 return null;
             }
 
-            return createdUserName;
+            return createdUserId;
 
         }
 

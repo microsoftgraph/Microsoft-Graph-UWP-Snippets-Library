@@ -221,6 +221,31 @@ namespace Microsoft_Graph_Snippets_SDK
 
         }
 
+        public static async Task<bool> AddUserToGroup(string userId, string groupId)
+        {
+            bool userAdded = false;
+            GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+            try
+            {
+                User userToAdd = new User { Id = userId };
+
+                //The underlying REST call returns a 204 (no content), so we can't retrieve the updated group
+                //with this call.
+                await graphClient.Groups[groupId].Members.References.Request().AddAsync(userToAdd);
+                Debug.WriteLine("Added user " + userId + " to the group: " + groupId);
+                userAdded = true;
+
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not add a user to the group: " + e.Error.Message);
+                userAdded = false;
+            }
+            return userAdded;
+        }
+
     }
 }
 

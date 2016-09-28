@@ -106,6 +106,7 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = groupsGroupName, Title = ResourceLoader.GetForCurrentView().GetString("CreateGroup"), ScopeGroup = ScopeGroupWorkAdmin, RunStoryAsync = GroupStories.TryCreateGroupAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = groupsGroupName, Title = ResourceLoader.GetForCurrentView().GetString("UpdateGroup"), ScopeGroup = ScopeGroupWorkAdmin, RunStoryAsync = GroupStories.TryUpdateGroupAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = groupsGroupName, Title = ResourceLoader.GetForCurrentView().GetString("DeleteGroup"), ScopeGroup = ScopeGroupWorkAdmin, RunStoryAsync = GroupStories.TryDeleteGroupAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = groupsGroupName, Title = ResourceLoader.GetForCurrentView().GetString("AddMember"), ScopeGroup = ScopeGroupWorkAdmin, RunStoryAsync = GroupStories.TryAddUserToGroup });
 
 
             var result = from story in StoryCollection group story by story.ScopeGroup into api orderby api.Key select api;
