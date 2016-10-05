@@ -12,7 +12,7 @@ using Windows.Security.Authentication.Web;
 using Windows.Security.Authentication.Web.Core;
 using Windows.Security.Credentials;
 using Windows.Storage;
-using Microsoft.Identity.Client;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace Microsoft_Graph_Snippets_SDK
 {
@@ -20,10 +20,11 @@ namespace Microsoft_Graph_Snippets_SDK
     {
         // The Client ID is used by the application to uniquely identify itself to Microsoft Azure Active Directory (AD).
         static string clientId = App.Current.Resources["ida:ClientID"].ToString();
-        static string returnUrl = App.Current.Resources["ida:ReturnUrl"].ToString();
+        private static Uri returnUri = new Uri(App.Current.Resources["ida:ReturnUri"].ToString());
+        private static readonly string CommonAuthority = App.Current.Resources["ida:AADInstance"].ToString() + @"common";
+        //Property for storing the authentication context.
+        public static AuthenticationContext context = new AuthenticationContext(CommonAuthority);
 
-
-        public static PublicClientApplication IdentityClientApp = null;
         public static string TokenForUser = null;
         public static DateTimeOffset expiration;
 
@@ -39,7 +40,7 @@ namespace Microsoft_Graph_Snippets_SDK
                 try
                 {
                     graphClient = new GraphServiceClient(
-                        "https://graph.microsoft.com/v1.0",
+                        "https://microsoftgraph.chinacloudapi.cn/v1.0",
                         new DelegateAuthenticationProvider(
                             async (requestMessage) =>
                             {
@@ -68,36 +69,22 @@ namespace Microsoft_Graph_Snippets_SDK
         /// <returns>Token for user.</returns>
         public static async Task<string> GetTokenForUserAsync()
         {
-            if (TokenForUser == null || expiration <= DateTimeOffset.UtcNow.AddMinutes(5))
+            try
             {
-                var redirectUri = new Uri(returnUrl);
-                var scopes = new string[]
-                        {
-                        "https://graph.microsoft.com/User.Read",
-                        "https://graph.microsoft.com/User.ReadWrite",
-                        "https://graph.microsoft.com/User.ReadBasic.All",
-                        "https://graph.microsoft.com/Mail.Send",
-                        "https://graph.microsoft.com/Calendars.ReadWrite",
-                        "https://graph.microsoft.com/Mail.ReadWrite",
-                        "https://graph.microsoft.com/Files.ReadWrite",
+                if (TokenForUser == null || expiration <= DateTimeOffset.UtcNow.AddMinutes(5))
+                {
 
-                        // Admin-only scopes. Uncomment these if you're running the sample with an admin work account.
-                        // You won't be able to sign in with a non-admin work account if you request these scopes.
-                        // These scopes will be ignored if you leave them uncommented and run the sample with a consumer account.
-                        // See the MainPage.xaml.cs file for all of the operations that won't work if you're not running the 
-                        // sample with an admin work account.
-                        //"https://graph.microsoft.com/Directory.AccessAsUser.All",
-                        //"https://graph.microsoft.com/User.ReadWrite.All",
-                        //"https://graph.microsoft.com/Group.ReadWrite.All"
+                    AuthenticationResult result = null;
 
+                    result = await context.AcquireTokenAsync("https://microsoftgraph.chinacloudapi.cn", clientId, returnUri);
 
-                    };
-
-                IdentityClientApp = new PublicClientApplication(clientId);
-                AuthenticationResult authResult = await IdentityClientApp.AcquireTokenAsync(scopes);
-
-                TokenForUser = authResult.Token;
-                expiration = authResult.ExpiresOn;
+                    TokenForUser = result.AccessToken;
+                    expiration = result.ExpiresOn;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Couldn't acquire a token: " + ex.Message);
             }
 
             return TokenForUser;
@@ -109,10 +96,6 @@ namespace Microsoft_Graph_Snippets_SDK
         /// </summary>
         public static void SignOut()
         {
-            foreach (var user in IdentityClientApp.Users)
-            {
-                user.SignOut();
-            }
             graphClient = null;
             TokenForUser = null;
 
@@ -120,4 +103,5 @@ namespace Microsoft_Graph_Snippets_SDK
 
 
     }
+
 }

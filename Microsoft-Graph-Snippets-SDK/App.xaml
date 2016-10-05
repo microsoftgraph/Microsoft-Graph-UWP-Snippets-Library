@@ -9,11 +9,12 @@ See LICENSE in the project root for license information. -->
     RequestedTheme="Light">
 
     <Application.Resources>
-        
+
         <!-- Add your client id here. -->
         <x:String x:Key="ida:ClientID"></x:String>
         <!-- Add your return URL here. -->
         <x:String x:Key="ida:ReturnUrl"></x:String>
+        <x:String x:Key="ida:AADInstance">https://login.chinacloudapi.cn/</x:String>
 
     </Application.Resources>
 
