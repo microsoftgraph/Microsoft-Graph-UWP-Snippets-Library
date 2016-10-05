@@ -43,13 +43,26 @@ This sample requires the following:
 <a name="register"></a>
 ##Register and configure the app
 
-1. Sign into the [App Registration Portal](https://apps.dev.microsoft.com/) using either your personal or work or school account.  
-2. Select **Add an app**.  
-3. Enter a name for the app, and select **Create application**. The registration page displays, listing the properties of your app.  
-4. Under **Platforms**, select **Add platform**.  
-5. Select **Mobile application**.  
-6. Copy both the Client Id (App Id) and Redirect URI values to the clipboard. You'll need to enter these values into the sample app. The app id is a unique identifier for your app. The redirect URI is a unique URI provided by Windows 10 for each application to ensure that messages sent to that URI are only sent to that application.   
-7. Select **Save**.  
+1. Sign in to the [Azure portal](https://portal.azure.com/).
+2. On the top bar, click on your account and under the **Directory** list, choose the Active Directory tenant where you wish to register your application.
+3. Click on **More Services** in the left hand nav, and choose **Azure Active Directory**.
+4. Click on **App registrations** and choose **Add**.
+5. Enter a friendly name for the application. Select **Native** as the Application Type. For the **Redirect URI**, enter **https://developer.graph.microsoft.com/**. Click on **Create** to create the application.
+6. While still in the Azure portal, choose your application, click on **Settings** and choose **Properties**.
+7. Find the **Application ID** value and copy it to the clipboard. This is the client ID value we'll add to the project later.
+8. Configure **Permissions** for your application - in the **Settings** menu, choose the **Required permissions** section, click on **Add**, then **Select an API**, and type "Microsoft Graph" in the text box. Then, click on **Select Permissions** and select:
+
+	* Read and write signed-in user's calendars
+	* Read signed-in user's contacts
+	* Read signed-in user's files
+	* Send mail as signed-in user
+	* Read signed-in user's mail
+	* Read all users' full profiles
+	* Read and write signed-in user's profile
+	* Access directory as the signed-in user
+	* Read and write directory data
+ 
+9. Click **Select**.
 
 
 <a name="build"></a>
