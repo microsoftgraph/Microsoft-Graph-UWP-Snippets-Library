@@ -39,7 +39,7 @@ This sample requires the following:
 <a name="register"></a>
 ##Register and configure the app
 
-1. Sign in to the [Azure portal](https://portal.azure.com/).
+1. Sign in to the [Azure portal](https://portal.azure.cn/).
 2. On the top bar, click on your account and under the **Directory** list, choose the Active Directory tenant where you wish to register your application.
 3. Click on **More Services** in the left hand nav, and choose **Azure Active Directory**.
 4. Click on **App registrations** and choose **Add**.
