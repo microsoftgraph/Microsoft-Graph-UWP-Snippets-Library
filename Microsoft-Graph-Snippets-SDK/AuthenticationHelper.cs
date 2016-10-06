@@ -20,7 +20,7 @@ namespace Microsoft_Graph_Snippets_SDK
     {
         // The Client ID is used by the application to uniquely identify itself to Microsoft Azure Active Directory (AD).
         static string clientId = App.Current.Resources["ida:ClientID"].ToString();
-        private static Uri returnUri = new Uri(App.Current.Resources["ida:ReturnUri"].ToString());
+        private static Uri returnUri = new Uri(App.Current.Resources["ida:ReturnUrl"].ToString());
         private static readonly string CommonAuthority = App.Current.Resources["ida:AADInstance"].ToString() + @"common";
         //Property for storing the authentication context.
         public static AuthenticationContext context = new AuthenticationContext(CommonAuthority);
