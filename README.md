@@ -47,15 +47,15 @@ This sample requires the following:
 7.	Click the arrow icon on the lower-right corner of the page.
 8.	On the **Application information** page, enter **https://developer.graph.microsoft.com/** for the redirect URI value.
 9.	Once the application is successfully added, you'll be taken to the **Quick Start** page for the application. From there, select **Configure** in the top menu.
-10.	Under **permissions to other applications**, select **Add application**. In the dialog box, select the **Microsoft Graph** application. After you return to the application configuration page, select the following permissions:
+10.	Under **permissions to other applications**, select **Add application**. In the dialog box, select the **Microsoft Graph** application. After you return to the application configuration page, select the following  Delegated permissions:
 
-	* Read and write signed-in user's calendars
-	* Read signed-in user's contacts
-	* Read signed-in user's files
-	* Send mail as signed-in user
-	* Read signed-in user's mail
+	* Have full access to user calendars
+	* Have full access to user contacts
+	* Read user files and files shared with user
+	* Send mail as a user
+	* Read user mail
 	* Read all users' full profiles
-	* Read and write signed-in user's profile
+	* Read and write access to user profile
 	* Access directory as the signed-in user
 	* Read and write directory data
  
