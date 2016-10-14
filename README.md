@@ -39,14 +39,16 @@ This sample requires the following:
 <a name="register"></a>
 ##Register and configure the app
 
-1. Sign in to the [Azure portal](https://portal.azure.cn/).
-2. On the top bar, click on your account and under the **Directory** list, choose the Active Directory tenant where you wish to register your application.
-3. Click on **More Services** in the left hand nav, and choose **Azure Active Directory**.
-4. Click on **App registrations** and choose **Add**.
-5. Enter a friendly name for the application. Select **Native** as the Application Type. For the **Redirect URI**, enter **https://developer.graph.microsoft.com/**. Click on **Create** to create the application.
-6. While still in the Azure portal, choose your application, click on **Settings** and choose **Properties**.
-7. Find the **Application ID** value and copy it to the clipboard. This is the client ID value we'll add to the project later.
-8. Configure **Permissions** for your application - in the **Settings** menu, choose the **Required permissions** section, click on **Add**, then **Select an API**, and type "Microsoft Graph" in the text box. Then, click on **Select Permissions** and select:
+1.	Sign in to the [Azure Management Portal](http://manage.windowsazure.cn) using your Azure AD credentials.
+2.	Click **Active Directory** on the left menu, then select the directory for your Office 365 developer site.
+3.	On the top menu, click **Applications**.
+4.	Click **Add** from the bottom menu.
+5.	On the **What do you want to do page**, click **Add an application my organization is developing**.
+6.	On the **Tell us about your application page**, select **NATIVE CLIENT APPLICATION** for type and enter a friendly name for the application.
+7.	Click the arrow icon on the lower-right corner of the page.
+8.	On the **Application information** page, enter **https://developer.graph.microsoft.com/** for the redirect URI value.
+9.	Once the application is successfully added, you'll be taken to the **Quick Start** page for the application. From there, select **Configure** in the top menu.
+10.	Under **permissions to other applications**, select **Add application**. In the dialog box, select the **Microsoft Graph** application. After you return to the application configuration page, select the following permissions:
 
 	* Read and write signed-in user's calendars
 	* Read signed-in user's contacts
@@ -58,8 +60,8 @@ This sample requires the following:
 	* Access directory as the signed-in user
 	* Read and write directory data
  
-9. Click **Select**.
-
+11.	Copy the value specified for **Client ID** on the **Configure** page.
+12.	Click **Save** in the bottom menu.
 
 <a name="build"></a>
 ## Build and debug ##
