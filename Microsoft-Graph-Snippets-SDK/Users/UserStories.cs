@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Graph;
 using Windows.Storage;
 
 namespace Microsoft_Graph_Snippets_SDK
@@ -159,6 +160,105 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             var createdFolderId = await UserSnippets.CreateFolderAsync(Guid.NewGuid().ToString());
             return createdFolderId != null;
+        }
+
+
+        //Excel stories
+        public static async Task<bool> TryUploadExcelFileAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            return createdFileId != null;
+        }
+
+        public static async Task<bool> TryDeleteExcelFileAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            bool fileDeleted = await UserSnippets.DeleteExcelFileAsync(createdFileId);
+            return fileDeleted;
+        }
+
+        public static async Task<bool> TryCreateExcelChartFromTableAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookChart excelWorkbookChart = await UserSnippets.CreateExcelChartFromTableAsync(createdFileId);
+            return excelWorkbookChart != null;
+        }
+
+        public static async Task<bool> TryGetExcelRangeAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookRange excelWorkbookRange = await UserSnippets.GetExcelRangeAsync(createdFileId);
+            return excelWorkbookRange != null;
+        }
+
+        public static async Task<bool> TryUpdateExcelRangeAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookRange excelWorkbookRange = await UserSnippets.UpdateExcelRangeAsync(createdFileId);
+            return excelWorkbookRange != null;
+        }
+
+        public static async Task<bool> TryChangeExcelNumberFormatAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookRange excelWorkbookRange = await UserSnippets.ChangeExcelNumberFormatAsync(createdFileId);
+            return excelWorkbookRange != null;
+        }
+
+        public static async Task<bool> TryAbsExcelFunctionAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookFunctionResult excelWorkbookFunctionResult = await UserSnippets.AbsExcelFunctionAsync(createdFileId);
+            return excelWorkbookFunctionResult != null;
+        }
+
+        public static async Task<bool> TrySetExcelFormulaAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookRange excelWorkbookRange = await UserSnippets.SetExcelFormulaAsync(createdFileId);
+            return excelWorkbookRange != null;
+        }
+
+        public static async Task<bool> TryAddExcelTableToUsedRangeAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookTable excelWorkbookTable = await UserSnippets.AddExcelTableToUsedRangeAsync(createdFileId);
+            return excelWorkbookTable != null;
+        }
+
+        public static async Task<bool> TryAddExcelRowToTableAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            WorkbookTableRow excelWorkbookTableRow = await UserSnippets.AddExcelRowToTableAsync(createdFileId);
+            return excelWorkbookTableRow != null;
+        }
+
+        public static async Task<bool> TrySortExcelTableOnFirstColumnValueAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            bool tableSorted = await UserSnippets.SortExcelTableOnFirstColumnValueAsync(createdFileId);
+            return tableSorted;
+        }
+
+        public static async Task<bool> TryFilterExcelTableValuesAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            bool tableFiltered = await UserSnippets.FilterExcelTableValuesAsync(createdFileId);
+            return tableFiltered;
+        }
+
+        public static async Task<bool> TryProtectExcelWorksheetAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            bool worksheetProtected = await UserSnippets.ProtectExcelWorksheetAsync(createdFileId);
+            return worksheetProtected;
+        }
+
+        public static async Task<bool> TryUnprotectExcelWorksheetAsync()
+        {
+            string createdFileId = await UserSnippets.UploadExcelFileAsync("excelTestResource.xlsx");
+            bool worksheetUnprotected = await UserSnippets.UnprotectExcelWorksheetAsync(createdFileId);
+            return worksheetUnprotected;
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Microsoft_Graph_Snippets_SDK
         public string ScopeGroupAll = ResourceLoader.GetForCurrentView().GetString("PersonalWorkAccess");
         public string ScopeGroupWork = ResourceLoader.GetForCurrentView().GetString("WorkAccess");
         public string ScopeGroupWorkAdmin = ResourceLoader.GetForCurrentView().GetString("WorkAdminAccess");
+        public string ScopeGroupExcel = ResourceLoader.GetForCurrentView().GetString("ExcelGroup");
 
         public List<StoryDefinition> StoryCollection { get; private set; }
         public MainPage()
@@ -92,7 +93,6 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetDirects"), ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetDirectReportsAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetPhoto"), ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetCurrentUserPhotoAsync });
 
-
             // Stories applicable only to work or school accounts with admin access
             // NOTE: All of these snippets will fail for lack of permissions if you sign into the sample with a non-admin work account
             // or any consumer account. 
@@ -107,6 +107,27 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = groupsGroupName, Title = ResourceLoader.GetForCurrentView().GetString("UpdateGroup"), ScopeGroup = ScopeGroupWorkAdmin, RunStoryAsync = GroupStories.TryUpdateGroupAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = groupsGroupName, Title = ResourceLoader.GetForCurrentView().GetString("DeleteGroup"), ScopeGroup = ScopeGroupWorkAdmin, RunStoryAsync = GroupStories.TryDeleteGroupAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = groupsGroupName, Title = ResourceLoader.GetForCurrentView().GetString("AddMember"), ScopeGroup = ScopeGroupWorkAdmin, RunStoryAsync = GroupStories.TryAddUserToGroup });
+
+            // Excel snippets. These stories are applicable only to work or school accounts.
+            // NOTE: All of these snippets will fail for lack of permissions if you sign into the sample with a personal (consumer) account
+
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("UploadXLFile"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryUploadExcelFileAsync });
+
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("CreateXLChart"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryCreateExcelChartFromTableAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetXLRange"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryGetExcelRangeAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("UpdateXLRange"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryUpdateExcelRangeAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("ChangeXLNumFormat"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryChangeExcelNumberFormatAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("XLABSFunction"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryAbsExcelFunctionAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("SetXLFormula"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TrySetExcelFormulaAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("AddXLTable"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryAddExcelTableToUsedRangeAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("AddXLTableRow"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryAddExcelRowToTableAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("SortXLTable"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TrySortExcelTableOnFirstColumnValueAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("FilterXLTable"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryFilterExcelTableValuesAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("ProtectWorksheet"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryProtectExcelWorksheetAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("UnprotectWorksheet"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryUnprotectExcelWorksheetAsync });
+
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("DeleteXLFile"), ScopeGroup = ScopeGroupExcel, RunStoryAsync = UserStories.TryDeleteExcelFileAsync });
+
 
 
             var result = from story in StoryCollection group story by story.ScopeGroup into api orderby api.Key select api;

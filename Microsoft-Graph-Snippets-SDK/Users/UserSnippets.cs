@@ -11,11 +11,15 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Graph;
+using Windows.Storage;
+using Windows.Storage.Streams;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace Microsoft_Graph_Snippets_SDK
 {
-    class UserSnippets
+    public class UserSnippets
     {
+        static string ExcelFileId = null;
 
         // Returns information about the signed-in user 
         public static async Task<string> GetMeAsync()
@@ -716,6 +720,570 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
             return createFolderId;
+        }
+
+        //Excel snippets
+
+        // Uploads a file and then streams the contents 
+        // of an existing spreadsheet into it. You must run this at least once
+        // before running the other Excel snippets. Otherwise, the other snippets
+        // will fail, because they assume the presence of this file.
+        // If you quit the app and run it again 5-10 minutes after uploading
+        // the Excel file, the snippets will likely fail,
+        // because the new file won't be indexed for search yet and the app won't
+        // be able to retrieve the file Id
+
+        public static async Task<string> UploadExcelFileAsync(string fileName)
+        {
+            string createdFileId = null;
+
+            try
+            {
+                // First test to determine whether the file exists. Create it if it doesn't.
+                // Don't bother to search if ExcelFileId variable is already populated.
+                if (ExcelFileId != null)
+                {
+                    createdFileId = ExcelFileId;
+                }
+                else
+                {
+                    createdFileId = await SearchForFileAsync(fileName);
+                }
+
+                if (createdFileId == null)
+                {
+
+                    GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                    DriveItem excelWorkbook = new DriveItem()
+                    {
+                        Name = fileName,
+                        File = new Microsoft.Graph.File()
+                    };
+
+                    // Create the Excel file.
+
+                    DriveItem excelWorkbookDriveItem = await graphClient.Me.Drive.Root.Children.Request().AddAsync(excelWorkbook);
+
+                    createdFileId = excelWorkbookDriveItem.Id;
+                    bool excelFileUploaded = await UploadExcelFileContentAsync(createdFileId);
+
+                    if (excelFileUploaded)
+                    {
+                        createdFileId = excelWorkbookDriveItem.Id;
+                        Debug.WriteLine("Created Excel file. Name: " + fileName + " Id: " + createdFileId);
+
+                    }
+
+                }
+            }
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not create the file: " + e.Error.Message);
+            }
+
+            // Store the file id so that you don't have to search for it
+            // in subsequent snippets.
+            ExcelFileId = createdFileId;
+            return createdFileId;
+        }
+
+        public static async Task<string> SearchForFileAsync(string fileName)
+        {
+            string fileId = null;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                // Check that this item hasn't already been created. 
+                // https://graph.microsoft.io/en-us/docs/api-reference/v1.0/api/item_search
+                IDriveItemSearchCollectionPage searchResults = await graphClient.Me.Drive.Root.Search(fileName).Request().GetAsync();
+                foreach (var r in searchResults)
+                {
+                    if (r.Name == fileName)
+                    {
+                        fileId = r.Id;
+                    }
+                }
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("The search for this file failed: " + e.Error.Message);
+            }
+
+            return fileId;
+        }
+
+        
+        public static async Task<bool> UploadExcelFileContentAsync(string fileId)
+        {
+            bool fileUploaded = false;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                DriveItem excelDriveItem = null;
+
+                StorageFile file = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync("excelTestResource.xlsx");
+                Stream fileStream = (await file.OpenReadAsync()).AsStreamForRead();
+
+                // Upload content to the file.
+                // https://graph.microsoft.io/en-us/docs/api-reference/v1.0/api/item_uploadcontent
+                excelDriveItem = await graphClient.Me.Drive.Items[fileId].Content.Request().PutAsync<DriveItem>(fileStream);
+
+                if ( excelDriveItem != null)
+                {
+                    fileUploaded = true;
+                }
+            }
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We failed to upload the contents of the Excel file: " + e.Error.Message);
+            }
+
+            return fileUploaded;
+
+        }
+
+
+        public static async Task<bool> DeleteExcelFileAsync(string fileId)
+        {
+             
+            bool fileDeleted = false;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+               
+                if (fileId != null)
+                {
+
+                    DriveItem w = await graphClient.Me.Drive.Items[fileId].Request().GetAsync();
+
+                    List<Option> headers = new List<Option>()
+                    {
+                        new HeaderOption("if-match", "*")
+                    };
+
+                    // Delete the workbook.
+                    // https://graph.microsoft.io/en-us/docs/api-reference/v1.0/api/item_delete
+                    await graphClient.Me.Drive.Items[fileId].Request(headers).DeleteAsync();
+                    fileDeleted = true;
+                    Debug.WriteLine("Deleted the file: " + fileId);
+                    ExcelFileId = null;
+                }
+
+                else
+                {
+                    Debug.WriteLine("We couldn't find the Excel file, so we didn't delete it.");
+                }
+            }
+
+
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to delete the Excel file: " + e.Error.Message);
+            }
+
+            return fileDeleted;
+
+        }
+
+
+        public static async Task<WorkbookChart> CreateExcelChartFromTableAsync(string fileId)
+        {
+            WorkbookChart workbookChart = null;
+
+            if (fileId == null)
+            {
+                Debug.WriteLine("Please upload the excelTestResource.xlsx file by running the Upload XL File snippet.");
+                return workbookChart;
+            }
+
+            else
+            {
+                try
+                {
+
+
+
+                    GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                    // Get the table range.
+                    WorkbookRange tableRange = await graphClient.Me.Drive.Items[fileId]
+                                                               .Workbook
+                                                               .Tables["CreateChartFromTable"] // Set in excelTestResource.xlsx
+                                                               .Range()
+                                                               .Request()
+                                                               .GetAsync();
+
+                    // Create a chart based on the table range.
+                    workbookChart = await graphClient.Me.Drive.Items[fileId]
+                                                                  .Workbook
+                                                                  .Worksheets["CreateChartFromTable"] // Set in excelTestResource.xlsx
+                                                                  .Charts
+                                                                  .Add("ColumnStacked", "Auto", tableRange.Address)
+                                                                  .Request()
+                                                                  .PostAsync();
+
+                    Debug.WriteLine("Created the Excel chart: " + workbookChart.Name);
+                }
+                catch (Microsoft.Graph.ServiceException e)
+                {
+                    Debug.WriteLine("We failed to create the Excel chart: " + e.Error.Message);
+                }
+
+                return workbookChart;
+            }
+        }
+
+
+        public static async Task<WorkbookRange> GetExcelRangeAsync(string fileId)
+        {
+            WorkbookRange workbookRange = null;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                // GET https://graph.microsoft.com/beta/me/drive/items/012KW42LDENXUUPCMYQJDYX3CLZMORQKGT/workbook/worksheets/Sheet1/Range(address='A1')
+                workbookRange = await graphClient.Me.Drive.Items[fileId]
+                                                              .Workbook
+                                                              .Worksheets["GetUpdateRange"] // Set in excelTestResource.xlsx
+                                                              .Range("A1")
+                                                              .Request()
+                                                              .GetAsync();
+
+                Debug.WriteLine("Got the Excel workbook range: " + workbookRange.Address);
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to get the Excel workbook range: " + e.Error.Message);
+            }
+
+            return workbookRange;
+        }
+
+
+        public static async Task<WorkbookRange> UpdateExcelRangeAsync(string fileId)
+        {
+            WorkbookRange workbookRange = null;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                // GET https://graph.microsoft.com/beta/me/drive/items/012KW42LDENXUUPCMYQJDYX3CLZMORQKGT/workbook/worksheets/Sheet1/Range(address='A1')
+                WorkbookRange rangeToUpdate = await graphClient.Me.Drive.Items[fileId]
+                                                              .Workbook
+                                                              .Worksheets["GetUpdateRange"] // Set in excelTestResource.xlsx
+                                                              .Range("A1")
+                                                              .Request()
+                                                              .GetAsync();
+
+                // Forming the JSON for the updated values
+                JArray arr = rangeToUpdate.Values as JArray;
+                JArray arrInner = arr[0] as JArray;
+                arrInner[0] = $"{arrInner[0] + "Updated"}"; // JToken
+
+                // Create a dummy WorkbookRange object so that we only PATCH the values we want to update.
+                WorkbookRange dummyWorkbookRange = new WorkbookRange();
+                dummyWorkbookRange.Values = arr;
+
+                // Update the range values.
+                workbookRange = await graphClient.Me.Drive.Items[fileId]
+                                                              .Workbook
+                                                              .Worksheets["GetUpdateRange"] // Set in excelTestResource.xlsx
+                                                              .Range("A1")
+                                                              .Request()
+                                                              .PatchAsync(dummyWorkbookRange);
+
+                Debug.WriteLine("Updated the Excel workbook range: " + workbookRange.Address);
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to get the Excel workbook range: " + e.Error.Message);
+            }
+
+            return workbookRange;
+        }
+
+        public static async Task<WorkbookRange> ChangeExcelNumberFormatAsync(string fileId)
+        {
+            WorkbookRange workbookRange = null;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                string excelWorksheetId = "ChangeNumberFormat";
+                string rangeAddress = "E2";
+
+                // Forming the JSON for 
+                JArray arr = JArray.Parse(@"[['$#,##0.00;[Red]$#,##0.00']]"); // Currency format
+
+                WorkbookRange dummyWorkbookRange = new WorkbookRange();
+                dummyWorkbookRange.NumberFormat = arr;
+
+
+                workbookRange = await graphClient.Me.Drive.Items[fileId]
+                                                              .Workbook
+                                                              .Worksheets[excelWorksheetId]
+                                                              .Range(rangeAddress)
+                                                              .Request()
+                                                              .PatchAsync(dummyWorkbookRange);
+
+                Debug.WriteLine("Updated the number format of the Excel workbook range: " + workbookRange.Address);
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to change the number format: " + e.Error.Message);
+            }
+            return workbookRange;
+        }
+
+        public static async Task<WorkbookFunctionResult> AbsExcelFunctionAsync(string fileId)
+        {
+            WorkbookFunctionResult workbookFunctionResult = null;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Get the absolute value of -10
+                JToken inputNumber = JToken.Parse("-10");
+
+                workbookFunctionResult = await graphClient.Me.Drive.Items[fileId].Workbook.Functions.Abs(inputNumber).Request().PostAsync();
+                Debug.WriteLine("Ran the Excel ABS function: " + workbookFunctionResult.Value);
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to run the ABS function: " + e.Error.Message);
+            }
+
+            return workbookFunctionResult;
+        }
+
+        public static async Task<WorkbookRange> SetExcelFormulaAsync(string fileId)
+        {
+            WorkbookRange workbookRange = null;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Forming the JSON for updating the formula
+                var arr = JArray.Parse(@"[['=A4*B4']]");
+
+                // We want to use a dummy workbook object so that we only send the property we want to update.
+                var dummyWorkbookRange = new WorkbookRange();
+                dummyWorkbookRange.Formulas = arr;
+
+                workbookRange = await graphClient.Me.Drive.Items[fileId]
+                                                              .Workbook
+                                                              .Worksheets["SetFormula"]
+                                                              .Range("C4")
+                                                              .Request()
+                                                              .PatchAsync(dummyWorkbookRange);
+
+                Debug.WriteLine("Set an Excel formula in this workbook range: " + workbookRange.Address);
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to set the formula: " + e.Error.Message);
+            }
+            return workbookRange;
+        }
+
+        public static async Task<WorkbookTable> AddExcelTableToUsedRangeAsync(string fileId)
+        {
+            WorkbookTable workbookTable = null;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Get the used range of this worksheet. This results in a call to the service.
+                WorkbookRange workbookRange = await graphClient.Me.Drive.Items[fileId]
+                                                              .Workbook
+                                                              .Worksheets["AddTableUsedRange"]
+                                                              .UsedRange()
+                                                              .Request()
+                                                              .GetAsync();
+
+
+                // Create the dummy workbook object. Must use the AdditionalData property for this. 
+                WorkbookTable dummyWorkbookTable = new WorkbookTable();
+                Dictionary<string, object> requiredPropsCreatingTableFromRange = new Dictionary<string, object>();
+                requiredPropsCreatingTableFromRange.Add("address", workbookRange.Address);
+                requiredPropsCreatingTableFromRange.Add("hasHeaders", false);
+                dummyWorkbookTable.AdditionalData = requiredPropsCreatingTableFromRange;
+
+                // Create a table based on the address of the workbookRange. 
+                // This results in a call to the service.
+                // https://graph.microsoft.io/en-us/docs/api-reference/v1.0/api/tablecollection_add
+                workbookTable = await graphClient.Me.Drive.Items[fileId]
+                                                              .Workbook
+                                                              .Worksheets["AddTableUsedRange"]
+                                                              .Tables
+                                                              .Add(false, workbookRange.Address)
+                                                              .Request()
+                                                              .PostAsync();
+
+                Debug.WriteLine("Added this Excel table to the used range: " + workbookTable.Name);
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to add the table to the used range: " + e.Error.Message);
+            }
+
+            return workbookTable;
+        }
+
+        public static async Task<WorkbookTableRow> AddExcelRowToTableAsync(string fileId)
+        {
+            WorkbookTableRow workbookTableRow = null;
+
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Create the table row to insert. This assumes that the table has 2 columns.
+                // You'll want to make sure you give a JSON array that matches the size of the table.
+                WorkbookTableRow newWorkbookTableRow = new WorkbookTableRow();
+                newWorkbookTableRow.Index = 0;
+                JArray myArr = JArray.Parse("[[\"ValueA2\",\"ValueA3\"]]");
+                newWorkbookTableRow.Values = myArr;
+
+                //// Insert a new row. This results in a call to the service.
+                workbookTableRow = await graphClient.Me.Drive.Items[fileId]
+                                                                 .Workbook
+                                                                 .Tables["Table1"]
+                                                                 .Rows
+                                                                 .Request()
+                                                                 .AddAsync(newWorkbookTableRow);
+
+                Debug.WriteLine("Added a row to Table 1.");
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to add the table row: " + e.Error.Message);
+            }
+
+            return workbookTableRow;
+        }
+
+        public static async Task<bool> SortExcelTableOnFirstColumnValueAsync(string fileId)
+        {
+            bool tableSorted = false;
+
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Create the sorting options.
+                WorkbookSortField sortField = new WorkbookSortField()
+                {
+                    Ascending = true,
+                    SortOn = "Value",
+                    Key = 0
+                };
+
+                List<WorkbookSortField> workbookSortFields = new List<WorkbookSortField>() { sortField };
+
+                // Sort the table. This results in a call to the service.
+                await graphClient.Me.Drive.Items[fileId].Workbook.Tables["Table2"]
+                                                                          .Sort
+                                                                          .Apply(true, "", workbookSortFields)
+                                                                          .Request()
+                                                                          .PostAsync();
+
+                tableSorted = true;
+                Debug.WriteLine("Sorted the table on this value: " + sortField.SortOn);
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to sort the table: " + e.Error.Message);
+            }
+
+            return tableSorted;
+        }
+
+        public static async Task<bool> FilterExcelTableValuesAsync(string fileId)
+        {
+            bool tableFiltered = false;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Filter the table. This results in a call to the service.
+                await graphClient.Me.Drive.Items[fileId]
+                                          .Workbook
+                                          .Tables["FilterTableValues"]
+                                          .Columns["1"] // This is a one based index.
+                                          .Filter
+                                          .ApplyValuesFilter(JArray.Parse("[\"2\"]"))
+                                          .Request()
+                                          .PostAsync();
+                tableFiltered = true;
+                Debug.WriteLine("Filtered the table.");
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to filter the table: " + e.Error.Message);
+            }
+
+            return tableFiltered;
+        }
+
+        public static async Task<bool> ProtectExcelWorksheetAsync(string fileId)
+        {
+            bool worksheetProtected = false;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Protect the worksheet.
+                await graphClient.Me.Drive.Items[fileId]
+                                          .Workbook
+                                          .Worksheets["ProtectWorksheet"]
+                                          .Protection
+                                          .Protect()
+                                          .Request()
+                                          .PostAsync();
+
+                worksheetProtected = true;
+                Debug.WriteLine("Protected the worksheet.");
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to protect the worksheet: " + e.Error.Message);
+            }
+
+            return worksheetProtected;
+        }
+
+        public static async Task<bool> UnprotectExcelWorksheetAsync(string fileId)
+        {
+            bool worksheetUnProtected = false;
+            try
+            {
+                GraphServiceClient graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                // Protect the worksheet.
+                await graphClient.Me.Drive.Items[fileId]
+                                          .Workbook
+                                          .Worksheets["ProtectWorksheet"]
+                                          .Protection
+                                          .Unprotect()
+                                          .Request()
+                                          .PostAsync();
+
+                worksheetUnProtected = true;
+                Debug.WriteLine("Unprotected the worksheet.");
+
+            }
+            catch (Microsoft.Graph.ServiceException e)
+            {
+                Debug.WriteLine("We failed to unprotect the worksheet: " + e.Error.Message);
+            }
+
+            return worksheetUnProtected;
         }
 
     }
