@@ -261,6 +261,9 @@
   <data name="UpdateXLRange" xml:space="preserve">
     <value>Update Range</value>
   </data>
+  <data name="UploadLargeFile" xml:space="preserve">
+    <value>Upload Large File</value>
+  </data>
   <data name="UploadXLFile" xml:space="preserve">
     <value>Upload File</value>
   </data>

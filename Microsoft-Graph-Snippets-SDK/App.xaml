@@ -11,9 +11,9 @@ See LICENSE in the project root for license information. -->
     <Application.Resources>
         
         <!-- Add your client id here. -->
-        <x:String x:Key="ida:ClientID"></x:String>
+        <x:String x:Key="ida:ClientID">347afbd6-9fb3-4762-94c6-86a445b0a40d</x:String>
         <!-- Add your return URL here. -->
-        <x:String x:Key="ida:ReturnUrl"></x:String>
+        <x:String x:Key="ida:ReturnUrl">urn:ietf:wg:oauth:2.0:oob</x:String>
 
     </Application.Resources>
 

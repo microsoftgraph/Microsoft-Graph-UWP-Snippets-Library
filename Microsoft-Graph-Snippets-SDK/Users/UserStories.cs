@@ -18,6 +18,13 @@ namespace Microsoft_Graph_Snippets_SDK
         private static readonly string DEFAULT_MESSAGE_BODY = "This message was sent from the Microsoft Graph SDK UWP Snippets project";
         public static ApplicationDataContainer _settings = ApplicationData.Current.RoamingSettings;
 
+        public static async Task<bool> TryUploadLargeFileAsync()
+        {
+            var result = await UserSnippets.UploadLargeFile();
+
+            return result != null;
+        }
+
         public static async Task<bool> TryGetMeAsync()
         {
             var currentUser = await UserSnippets.GetMeAsync();
