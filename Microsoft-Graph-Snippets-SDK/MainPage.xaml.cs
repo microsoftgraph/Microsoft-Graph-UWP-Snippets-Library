@@ -67,6 +67,7 @@ namespace Microsoft_Graph_Snippets_SDK
             var usersGroupName = ResourceLoader.GetForCurrentView().GetString("UsersGroup");
             var groupsGroupName = ResourceLoader.GetForCurrentView().GetString("GroupsGroup");
 
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("UploadLargeFile"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryUploadLargeFileAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetMe"),  ScopeGroup= ScopeGroupAll, RunStoryAsync = UserStories.TryGetMeAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("ReadUsers"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryGetUsersAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetDrive"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryGetCurrentUserDriveAsync });

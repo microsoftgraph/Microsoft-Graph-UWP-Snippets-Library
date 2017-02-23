@@ -21,6 +21,61 @@ namespace Microsoft_Graph_Snippets_SDK
     {
         static string ExcelFileId = null;
 
+        public static async Task<string> UploadLargeFile()
+        {
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+
+                StorageFile file = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync("LargeFileUploadResource.bmp");
+
+                using (Stream fileStream = (await file.OpenReadAsync()).AsStreamForRead())
+                {
+                    // Create the upload session. The access token is no longer required as you have session established for the upload.  
+                    // POST /v1.0/drive/root:/UploadLargeFile.bmp:/microsoft.graph.createUploadSession
+                    var uploadSession = await graphClient.Drive.Root.ItemWithPath("LargeFileUploadResource.bmp").CreateUploadSession().Request().PostAsync();
+
+                    var maxChunkSize = 320 * 1024; // 320 KB - Change this to your chunk size. 5MB is the default.
+                    var provider = new ChunkedUploadProvider(uploadSession, graphClient, fileStream, maxChunkSize);
+
+                    // Setup the chunk request necessities
+                    var chunkRequests = provider.GetUploadChunkRequests();
+                    var readBuffer = new byte[maxChunkSize];
+                    var trackedExceptions = new List<Exception>();
+                    DriveItem itemResult = null;
+
+                    //upload the chunks
+                    foreach (var request in chunkRequests)
+                    {
+                        // Do your updates here: update progress bar, etc.
+                        // ...
+                        // Send chunk request
+                        var result = await provider.GetChunkRequestResponseAsync(request, readBuffer, trackedExceptions);
+
+                        if (result.UploadSucceeded)
+                        {
+                            itemResult = result.ItemResponse;
+                        }
+                    }
+
+                    // Check that upload succeeded
+                    if (itemResult == null)
+                    {
+                        // Retry the upload
+                        // ...
+                    }
+
+                    return "Success";
+                }
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not upload the file: " + e.Error.Message);
+                return null;
+            }
+        }
+
         // Returns information about the signed-in user 
         public static async Task<string> GetMeAsync()
         {
@@ -29,23 +84,19 @@ namespace Microsoft_Graph_Snippets_SDK
             try
             {
                 var graphClient = AuthenticationHelper.GetAuthenticatedClient();
-
                 var currentUserObject = await graphClient.Me.Request().GetAsync();
                 currentUserName = currentUserObject.DisplayName;
 
-                if ( currentUserName != null)
+                if (currentUserName != null)
                 {
                     Debug.WriteLine("Got user: " + currentUserName);
                 }
-
             }
-
 
             catch (ServiceException e)
             {
                 Debug.WriteLine("We could not get the current user: " + e.Error.Message);
                 return null;
-
             }
 
             return currentUserName;

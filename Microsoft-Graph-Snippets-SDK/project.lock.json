@@ -30,10 +30,10 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Graph/1.1.1": {
+      "Microsoft.Graph/1.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Graph.Core": "1.2.1",
+          "Microsoft.Graph.Core": "1.3.0",
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
         },
         "compile": {
@@ -43,7 +43,7 @@
           "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.Graph.Core/1.2.1": {
+      "Microsoft.Graph.Core/1.3.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
@@ -1959,10 +1959,10 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Graph/1.1.1": {
+      "Microsoft.Graph/1.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Graph.Core": "1.2.1",
+          "Microsoft.Graph.Core": "1.3.0",
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
         },
         "compile": {
@@ -1972,7 +1972,7 @@
           "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.Graph.Core/1.2.1": {
+      "Microsoft.Graph.Core/1.3.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
@@ -3745,10 +3745,10 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Graph/1.1.1": {
+      "Microsoft.Graph/1.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Graph.Core": "1.2.1",
+          "Microsoft.Graph.Core": "1.3.0",
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
         },
         "compile": {
@@ -3758,7 +3758,7 @@
           "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.Graph.Core/1.2.1": {
+      "Microsoft.Graph.Core/1.3.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
@@ -5494,10 +5494,10 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Graph/1.1.1": {
+      "Microsoft.Graph/1.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Graph.Core": "1.2.1",
+          "Microsoft.Graph.Core": "1.3.0",
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
         },
         "compile": {
@@ -5507,7 +5507,7 @@
           "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.Graph.Core/1.2.1": {
+      "Microsoft.Graph.Core/1.3.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
@@ -7287,10 +7287,10 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Graph/1.1.1": {
+      "Microsoft.Graph/1.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Graph.Core": "1.2.1",
+          "Microsoft.Graph.Core": "1.3.0",
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
         },
         "compile": {
@@ -7300,7 +7300,7 @@
           "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.Graph.Core/1.2.1": {
+      "Microsoft.Graph.Core/1.3.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
@@ -9036,10 +9036,10 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Graph/1.1.1": {
+      "Microsoft.Graph/1.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Graph.Core": "1.2.1",
+          "Microsoft.Graph.Core": "1.3.0",
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
         },
         "compile": {
@@ -9049,7 +9049,7 @@
           "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.Graph.Core/1.2.1": {
+      "Microsoft.Graph.Core/1.3.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
@@ -10829,10 +10829,10 @@
           "lib/netcore50/Microsoft.CSharp.dll": {}
         }
       },
-      "Microsoft.Graph/1.1.1": {
+      "Microsoft.Graph/1.2.1": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Graph.Core": "1.2.1",
+          "Microsoft.Graph.Core": "1.3.0",
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
         },
         "compile": {
@@ -10842,7 +10842,7 @@
           "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll": {}
         }
       },
-      "Microsoft.Graph.Core/1.2.1": {
+      "Microsoft.Graph.Core/1.3.0": {
         "type": "package",
         "dependencies": {
           "Newtonsoft.Json": "[6.0.1, 10.0.0)"
@@ -12593,11 +12593,12 @@
         "ref/xamarinmac20/_._"
       ]
     },
-    "Microsoft.Graph/1.1.1": {
-      "sha512": "AhVlAzDTo8qikv5kjpveYj8N+B6gWgcGJcfba5mJDDqJsE4GdzfybbD8FzXR075AvKyIhTKLPsGjPPevySLCJg==",
+    "Microsoft.Graph/1.2.1": {
+      "sha512": "ibq4XXSsiMNCWXhXIJX7LKEKqMY1b1dyn8ZGfIlPIm8PVlAh3hiVwphK4lYDlHeLMjCey6b+0Rm3EIsyV47mrg==",
       "type": "package",
+      "path": "Microsoft.Graph/1.2.1",
       "files": [
-        "Microsoft.Graph.1.1.1.nupkg.sha512",
+        "Microsoft.Graph.1.2.1.nupkg.sha512",
         "Microsoft.Graph.nuspec",
         "lib/MonoAndroid10/Microsoft.Graph.dll",
         "lib/MonoTouch10/Microsoft.Graph.dll",
@@ -12606,11 +12607,12 @@
         "lib/portable45-net45+win8+wpa81/Microsoft.Graph.dll"
       ]
     },
-    "Microsoft.Graph.Core/1.2.1": {
-      "sha512": "ZVfBio42uIrKT7P2AmUDb5FQiY27hayaeJ1aSj3eocRojkqs15dcjk6+iuVb2qxgK2Re3raJHE31BZUK/+mB/A==",
+    "Microsoft.Graph.Core/1.3.0": {
+      "sha512": "vGGZXb0P8zx6AVmcRYHixB+yLH+KOVxDhr54OmJtCBTjtmQeVYSGYfkC59hMcPeY2DL7yq/bmvUB/tYHTs6TqA==",
       "type": "package",
+      "path": "Microsoft.Graph.Core/1.3.0",
       "files": [
-        "Microsoft.Graph.Core.1.2.1.nupkg.sha512",
+        "Microsoft.Graph.Core.1.3.0.nupkg.sha512",
         "Microsoft.Graph.Core.nuspec",
         "lib/MonoAndroid10/Microsoft.Graph.Core.dll",
         "lib/MonoTouch10/Microsoft.Graph.Core.dll",
@@ -12766,13 +12768,12 @@
       ]
     },
     "Microsoft.NETCore.Runtime.CoreCLR-arm/1.0.0": {
-      "sha512": "hoJfIl981eXwn9Tz8onO/J1xaYApIfp/YrhjSh9rRhml1U5Wj80LBgyp/6n+KI3VlvcAraThhnHnCTp+M3Uh+w==",
-      "type": "Package",
+      "sha512": "vUQyaKbHCa7BJAAzdfCP2FfBYOSt0YnDw7VMJLmD1/k68HIJgw1QO7GAfHhqoa39zkkvimC47QBH27wG4C5OGQ==",
+      "type": "package",
+      "path": "Microsoft.NETCore.Runtime.CoreCLR-arm/1.0.0",
       "files": [
+        "Microsoft.NETCore.Runtime.CoreCLR-arm.1.0.0.nupkg.sha512",
         "Microsoft.NETCore.Runtime.CoreCLR-arm.nuspec",
-        "[Content_Types].xml",
-        "_rels/.rels",
-        "package/services/metadata/core-properties/c1cbeaed81514106b6b7971ac193f132.psmdcp",
         "ref/dotnet/_._",
         "runtimes/win8-arm/lib/dotnet/mscorlib.ni.dll",
         "runtimes/win8-arm/native/clretwrc.dll",
@@ -15984,11 +15985,13 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Microsoft.Graph >= 1.1.1",
+      "Microsoft.Graph >= 1.2.1",
       "Microsoft.Identity.Client >= 1.0.303282006-alpha",
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "Newtonsoft.Json >= 9.0.1"
     ],
     "UAP,Version=v10.0": []
-  }
+  },
+  "tools": {},
+  "projectFileToolGroups": {}
 }
