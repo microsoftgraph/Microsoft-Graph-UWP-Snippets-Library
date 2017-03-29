@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AcceptMeeting" xml:space="preserve">
+    <value>Accept a Meeting</value>
+  </data>
   <data name="AddMember" xml:space="preserve">
     <value>Add member</value>
   </data>
@@ -174,6 +177,9 @@
   <data name="FilterXLTable" xml:space="preserve">
     <value>Filter Table</value>
   </data>
+  <data name="GenericText" xml:space="preserve">
+    <value>Some text content.</value>
+  </data>
   <data name="GetAGroup" xml:space="preserve">
     <value>Get a Group</value>
   </data>
@@ -201,11 +207,23 @@
   <data name="GetMessages" xml:space="preserve">
     <value>Get Messages</value>
   </data>
+  <data name="GetMyCalendarView" xml:space="preserve">
+    <value>Get Cal View</value>
+  </data>
+  <data name="GetMyInboxMessagesThatHaveAttachments" xml:space="preserve">
+    <value>Msgs w/ Attach</value>
+  </data>
   <data name="GetOwners" xml:space="preserve">
     <value>Get Owners</value>
   </data>
   <data name="GetPhoto" xml:space="preserve">
     <value>Get Photo</value>
+  </data>
+  <data name="GetPhotoStream" xml:space="preserve">
+    <value>Photo Stream</value>
+  </data>
+  <data name="GetSharingLink" xml:space="preserve">
+    <value>Sharing Link</value>
   </data>
   <data name="GetUserFiles" xml:space="preserve">
     <value>Get User Files</value>
@@ -219,11 +237,32 @@
   <data name="GroupsGroup" xml:space="preserve">
     <value>Groups</value>
   </data>
+  <data name="MoveMessage" xml:space="preserve">
+    <value>Move Message</value>
+  </data>
   <data name="PersonalWorkAccess" xml:space="preserve">
     <value>Applicable to personal or work accounts</value>
   </data>
   <data name="PleaseRegister" xml:space="preserve">
     <value>Please register your app before you run this sample</value>
+  </data>
+  <data name="Prop_AttachmentName" xml:space="preserve">
+    <value>Attachment name</value>
+  </data>
+  <data name="Prop_AttachmentsCount" xml:space="preserve">
+    <value>Attachment count</value>
+  </data>
+  <data name="Prop_AttachmentSize" xml:space="preserve">
+    <value>Attachment size</value>
+  </data>
+  <data name="Prop_AttachmentType" xml:space="preserve">
+    <value>Attachment type</value>
+  </data>
+  <data name="Prop_IsDraft" xml:space="preserve">
+    <value>IsDraft</value>
+  </data>
+  <data name="Prop_ResponseStatus" xml:space="preserve">
+    <value>Response status</value>
   </data>
   <data name="ProtectWorksheet" xml:space="preserve">
     <value>Protect Wksht</value>
@@ -234,11 +273,17 @@
   <data name="RenameFile" xml:space="preserve">
     <value>Rename File</value>
   </data>
+  <data name="ReplyToMessage" xml:space="preserve">
+    <value>Reply Message</value>
+  </data>
   <data name="RunSelected" xml:space="preserve">
     <value>run selected</value>
   </data>
   <data name="SendMessage" xml:space="preserve">
     <value>Send Message</value>
+  </data>
+  <data name="SendMessageWithAttachment" xml:space="preserve">
+    <value>Mail w/ Attach</value>
   </data>
   <data name="SetXLFormula" xml:space="preserve">
     <value>Set Formula</value>

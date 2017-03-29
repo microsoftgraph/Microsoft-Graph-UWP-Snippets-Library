@@ -75,8 +75,13 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("CreateEvent"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryCreateEventAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("UpdateEvent"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryUpdateEventAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("DeleteEvent"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryDeleteEventAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetMyCalendarView"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryGetMyCalendarViewAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("AcceptMeeting"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryAcceptMeetingRequestAsync });
+
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetMessages"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryGetMessages });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetMyInboxMessagesThatHaveAttachments"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryGetMessagesThatHaveAttachments });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("SendMessage"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TrySendMailAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("SendMessageWithAttachment"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TrySendMessageWithAttachmentAsync });
 
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetUserFiles"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryGetCurrentUserFilesAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("CreateTextFile"), ScopeGroup = ScopeGroupAll, RunStoryAsync = UserStories.TryCreateFileAsync });
@@ -93,6 +98,7 @@ namespace Microsoft_Graph_Snippets_SDK
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetManager"), ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetCurrentUserManagerAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetDirects"), ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetDirectReportsAsync });
             StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetPhoto"), ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetCurrentUserPhotoAsync });
+            StoryCollection.Add(new StoryDefinition() { GroupName = usersGroupName, Title = ResourceLoader.GetForCurrentView().GetString("GetPhotoStream"), ScopeGroup = ScopeGroupWork, RunStoryAsync = UserStories.TryGetCurrentUserPhotoStreamAsync });
 
             // Stories applicable only to work or school accounts with admin access
             // NOTE: All of these snippets will fail for lack of permissions if you sign into the sample with a non-admin work account

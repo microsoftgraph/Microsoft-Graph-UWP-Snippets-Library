@@ -90,7 +90,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="LargeFileUploadResource.bmp" />
+    <Content Include="LargeFileUploadResource.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <PRIResource Include="Assets\Resources.resw" />
     <Content Include="excelTestResource.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
