@@ -567,13 +567,56 @@ namespace Microsoft_Graph_Snippets_SDK
 
             catch (ServiceException e)
             {
-                Debug.WriteLine("We could not send the message. The request returned this status code: " + e.Error.Message);
+                Debug.WriteLine("We could not send the message with an attachment. The request returned this status code: " + e.Error.Message);
                 emailSent = false;
             }
 
             return emailSent;
         }
 
+        // Reply to a specified message
+        public static async Task<bool> ReplyToMessageAsync(string Id)
+        {
+            bool replySent = false;
+            string responseText = ResourceLoader.GetForCurrentView().GetString("GenericText");
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                await graphClient.Me.Messages[Id].Reply(responseText).Request().PostAsync();
+                Debug.WriteLine("Reply sent");
+                replySent = true;
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not reply to the message. The request returned this status code: " + e.Error.Message);
+                replySent = false;
+            }
+
+            return replySent;
+        }
+
+        // Move a specified message. This creates a new copy of the message to the specified folder. 
+        public static async Task<Message> MoveMessageAsync(string Id, string folderName)
+        {
+            Message message = null;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                message = await graphClient.Me.Messages[Id].Move(folderName).Request().PostAsync();
+                Debug.WriteLine("Message " + Id + " moved to " + folderName );
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not move the message. The request returned this status code: " + e.Error.Message);
+            }
+
+            return message;
+
+        }
 
         // Gets the signed-in user's manager. 
         // This snippet doesn't work with personal accounts.
@@ -741,6 +784,26 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
 
+        }
+
+        public static async Task<Permission> GetSharingLinkAsync(string Id)
+        {
+            Permission permission = null;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                permission = await graphClient.Me.Drive.Items[Id].CreateLink("view").Request().PostAsync();
+                Debug.WriteLine("Got sharing link for file: " + permission.Link.WebUrl);
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not get the sharing link: " + e.Error.Message);
+                return null;
+            }
+
+            return permission;
         }
 
         // Creates a text file in the user's root directory.

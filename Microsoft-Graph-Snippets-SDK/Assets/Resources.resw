@@ -246,24 +246,6 @@
   <data name="PleaseRegister" xml:space="preserve">
     <value>Please register your app before you run this sample</value>
   </data>
-  <data name="Prop_AttachmentName" xml:space="preserve">
-    <value>Attachment name</value>
-  </data>
-  <data name="Prop_AttachmentsCount" xml:space="preserve">
-    <value>Attachment count</value>
-  </data>
-  <data name="Prop_AttachmentSize" xml:space="preserve">
-    <value>Attachment size</value>
-  </data>
-  <data name="Prop_AttachmentType" xml:space="preserve">
-    <value>Attachment type</value>
-  </data>
-  <data name="Prop_IsDraft" xml:space="preserve">
-    <value>IsDraft</value>
-  </data>
-  <data name="Prop_ResponseStatus" xml:space="preserve">
-    <value>Response status</value>
-  </data>
   <data name="ProtectWorksheet" xml:space="preserve">
     <value>Protect Wksht</value>
   </data>

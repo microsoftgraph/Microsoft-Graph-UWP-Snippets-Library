@@ -145,6 +145,25 @@ namespace Microsoft_Graph_Snippets_SDK
                 );
         }
 
+        // Replies to the first message returned by the GetMessages snippet
+        public static async Task<bool> TryReplyToMessageAsync()
+        {
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();            
+            var messages = await UserSnippets.GetMessagesAsync();
+            return await UserSnippets.ReplyToMessageAsync(messages[0].Id);
+        }
+
+        // Moves a message to the "Drafts" folder
+        public static async Task<bool> TryMoveMessageAsync()
+        {
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+            var currentUser = await graphClient.Me.Request().GetAsync();
+
+            var messages = await UserSnippets.GetMessagesAsync();
+            var message = await UserSnippets.MoveMessageAsync(messages[0].Id, "Drafts");
+            return message != null;
+        }
+
         // This story does not work with a personal account
         public static async Task<bool> TryGetCurrentUserManagerAsync()
         {
@@ -184,6 +203,13 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             var files = await UserSnippets.GetCurrentUserFilesAsync();
             return files != null;
+        }
+
+        public static async Task<bool> TryGetSharingLinkAsync()
+        {
+            string fileId = await UserSnippets.CreateFileAsync(Guid.NewGuid().ToString(), STORY_DATA_IDENTIFIER);
+            Permission permission = await UserSnippets.GetSharingLinkAsync(fileId);
+            return permission != null;
         }
 
         public static async Task<bool> TryCreateFileAsync()
