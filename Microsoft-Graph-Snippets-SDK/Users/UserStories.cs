@@ -78,9 +78,47 @@ namespace Microsoft_Graph_Snippets_SDK
             return await UserSnippets.DeleteEventAsync(createdEvent);
         }
 
+        public static async Task<bool> TryGetMyCalendarViewAsync()
+        {
+            var calendar = await UserSnippets.GetMyCalendarViewAsync();
+            return calendar != null;
+
+        }
+
+        public static async Task<bool> TryAcceptMeetingRequestAsync()
+        {
+            var events = await UserSnippets.GetEventsAsync();
+            // Set the first event as the default meeting to accept.
+            // This guarantees that we'll at least have a value to pass
+            // to the snippet.
+            // If the current user is the organizer of the meeting, the 
+            // snippet will not work, since organizers can't accept their
+            // own invitations.
+            string eventToAccept = events[0].Id;
+
+            // Look for a meeting that didn't originate with an invitation 
+            // from the current user. If we can't find one, the snippet will 
+            // throw an exception.
+            foreach (var myEvent in events)
+            {
+                if (myEvent.ResponseStatus.Response != ResponseType.Organizer)
+                {
+                    eventToAccept = myEvent.Id;
+                    break;
+                }
+            }
+            return await UserSnippets.AcceptMeetingRequestAsync(eventToAccept);
+        }
+
         public static async Task<bool> TryGetMessages()
         {
             var messages = await UserSnippets.GetMessagesAsync();
+            return messages != null;
+        }
+
+        public static async Task<bool> TryGetMessagesThatHaveAttachments()
+        {
+            var messages = await UserSnippets.GetMessagesThatHaveAttachmentsAsync();
             return messages != null;
         }
 
@@ -93,6 +131,37 @@ namespace Microsoft_Graph_Snippets_SDK
                     DEFAULT_MESSAGE_BODY,
                     currentUser.UserPrincipalName
                 );
+        }
+
+        public static async Task<bool> TrySendMessageWithAttachmentAsync()
+        {
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+            var currentUser = await graphClient.Me.Request().GetAsync();
+
+            return await UserSnippets.SendMessageWithAttachmentAsync(
+                    STORY_DATA_IDENTIFIER,
+                    DEFAULT_MESSAGE_BODY,
+                    currentUser.UserPrincipalName
+                );
+        }
+
+        // Replies to the first message returned by the GetMessages snippet
+        public static async Task<bool> TryReplyToMessageAsync()
+        {
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();            
+            var messages = await UserSnippets.GetMessagesAsync();
+            return await UserSnippets.ReplyToMessageAsync(messages[0].Id);
+        }
+
+        // Moves a message to the "Drafts" folder
+        public static async Task<bool> TryMoveMessageAsync()
+        {
+            var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+            var currentUser = await graphClient.Me.Request().GetAsync();
+
+            var messages = await UserSnippets.GetMessagesAsync();
+            var message = await UserSnippets.MoveMessageAsync(messages[0].Id, "Drafts");
+            return message != null;
         }
 
         // This story does not work with a personal account
@@ -116,6 +185,13 @@ namespace Microsoft_Graph_Snippets_SDK
             return photoId != null;
         }
 
+        // This story does not work with a personal account
+        public static async Task<bool> TryGetCurrentUserPhotoStreamAsync()
+        {
+            Stream photoStream = await UserSnippets.GetCurrentUserPhotoStreamAsync();
+            return photoStream != null;
+        }
+
         // This story requires an admin work account.
         public static async Task<bool> TryGetCurrentUserGroupsAsync()
         {
@@ -127,6 +203,13 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             var files = await UserSnippets.GetCurrentUserFilesAsync();
             return files != null;
+        }
+
+        public static async Task<bool> TryGetSharingLinkAsync()
+        {
+            string fileId = await UserSnippets.CreateFileAsync(Guid.NewGuid().ToString(), STORY_DATA_IDENTIFIER);
+            Permission permission = await UserSnippets.GetSharingLinkAsync(fileId);
+            return permission != null;
         }
 
         public static async Task<bool> TryCreateFileAsync()

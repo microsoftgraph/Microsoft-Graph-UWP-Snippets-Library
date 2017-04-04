@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Graph;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -33,7 +34,7 @@ namespace Microsoft_Graph_Snippets_SDK
                 {
                     // Create the upload session. The access token is no longer required as you have session established for the upload.  
                     // POST /v1.0/drive/root:/UploadLargeFile.bmp:/microsoft.graph.createUploadSession
-                    var uploadSession = await graphClient.Drive.Root.ItemWithPath("LargeFileUploadResource.bmp").CreateUploadSession().Request().PostAsync();
+                    var uploadSession = await graphClient.Me.Drive.Root.ItemWithPath("LargeFileUploadResource.bmp").CreateUploadSession().Request().PostAsync();
 
                     var maxChunkSize = 320 * 1024; // 320 KB - Change this to your chunk size. 5MB is the default.
                     var provider = new ChunkedUploadProvider(uploadSession, graphClient, fileStream, maxChunkSize);
@@ -354,6 +355,63 @@ namespace Microsoft_Graph_Snippets_SDK
 
         }
 
+        // Gets user's calendar view. 
+
+        public static async Task<ICalendarCalendarViewCollectionPage> GetMyCalendarViewAsync()
+        {
+            ICalendarCalendarViewCollectionPage calendar = null;
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                List<QueryOption> options = new List<QueryOption>();
+                options.Add(new QueryOption("startDateTime", DateTime.Now.ToString("o")));
+                options.Add(new QueryOption("endDateTime", DateTime.Now.AddDays(7).ToString("o")));
+                calendar = await graphClient.Me.Calendar.CalendarView.Request(options).GetAsync();
+
+                if (calendar?.Count > 0)
+                {
+                    foreach (Event current in calendar)
+                    {
+                        Debug.WriteLine(current.Subject);
+                    }
+                }
+
+                
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not get the calendar view: " + e.Error.Message);
+                return null;
+            }
+
+            return calendar;
+        }
+
+        // Accept a meeting request.
+
+        public static async Task<bool> AcceptMeetingRequestAsync(string id)
+        {
+            bool meetingAccepted = false;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                var responseText = ResourceLoader.GetForCurrentView().GetString("GenericText");
+
+                await graphClient.Me.Events[id].Accept(responseText).Request().PostAsync();
+                Debug.WriteLine("Accepted meeting: " + id);
+                meetingAccepted = true;
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not get accept the meeting: " + e.Error.Message);
+            }
+
+            return meetingAccepted;
+        }
+
         // Returns the first page of the signed-in user's messages.
         public static async Task<IUserMessagesCollectionPage> GetMessagesAsync()
         {
@@ -382,7 +440,36 @@ namespace Microsoft_Graph_Snippets_SDK
 
         }
 
-        // Updates the subject of an existing event in the signed-in user's tenant.
+        public static async Task<IMailFolderMessagesCollectionPage> GetMessagesThatHaveAttachmentsAsync()
+        {
+            IMailFolderMessagesCollectionPage messages = null;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                messages = await graphClient.Me.MailFolders.Inbox.Messages.Request().Filter("hasAttachments eq true").Expand("attachments").GetAsync();
+                foreach ( var message in messages)
+                {
+                    // This snippet displays information about the first attachment in each message
+                    Attachment firstAttachment = message.Attachments[0];
+                    Debug.WriteLine("Got message with attachment: " + message.Subject);
+                    Debug.WriteLine("Attachment name: " + firstAttachment.Name);
+                    Debug.WriteLine("Attachment content type: " + firstAttachment.ContentType);
+
+                }
+
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not get messages that have attachments: " + e.Error.Message);
+                return null;
+            }
+
+            return messages;
+        }
+
+        // Sends message to a specified address.
         public static async Task<bool> SendMessageAsync(
             string Subject,
             string Body,
@@ -424,6 +511,111 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
             return emailSent;
+        }
+
+        // Sends message with an attachment to a specified address.
+        public static async Task<bool> SendMessageWithAttachmentAsync(
+            string Subject,
+            string Body,
+            string RecipientAddress
+            )
+        {
+            bool emailSent = false;            
+
+            //Create recipient list
+            List<Recipient> recipientList = new List<Recipient>();
+            recipientList.Add(new Recipient { EmailAddress = new EmailAddress { Address = RecipientAddress.Trim() } });
+
+            // Create an attachment and add it to the attachments collection. 
+            StorageFile file = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFileAsync("excelTestResource.xlsx");
+            Stream fileStream = (await file.OpenReadAsync()).AsStreamForRead();
+            MemoryStream fileStreamMS = new MemoryStream();
+            // Copy stream to MemoryStream object so that it can be converted to byte array.
+            fileStream.CopyTo(fileStreamMS);
+
+            MessageAttachmentsCollectionPage attachments = new MessageAttachmentsCollectionPage();
+            attachments.Add(new FileAttachment
+            {
+                ODataType = "#microsoft.graph.fileAttachment",
+                ContentBytes = fileStreamMS.ToArray(),
+                ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                Name = "excelTestResource.xlsx"
+            });
+
+            //Create message
+            var email = new Message
+            {
+                Body = new ItemBody
+                {
+                    Content = Body,
+                    ContentType = BodyType.Html,
+                },
+                Subject = Subject,
+                ToRecipients = recipientList,
+                Attachments = attachments
+            };
+
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                await graphClient.Me.SendMail(email, true).Request().PostAsync();
+                Debug.WriteLine("Message sent");
+                emailSent = true;
+
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not send the message with an attachment. The request returned this status code: " + e.Error.Message);
+                emailSent = false;
+            }
+
+            return emailSent;
+        }
+
+        // Reply to a specified message
+        public static async Task<bool> ReplyToMessageAsync(string Id)
+        {
+            bool replySent = false;
+            string responseText = ResourceLoader.GetForCurrentView().GetString("GenericText");
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                await graphClient.Me.Messages[Id].Reply(responseText).Request().PostAsync();
+                Debug.WriteLine("Reply sent");
+                replySent = true;
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not reply to the message. The request returned this status code: " + e.Error.Message);
+                replySent = false;
+            }
+
+            return replySent;
+        }
+
+        // Move a specified message. This creates a new copy of the message to the specified folder. 
+        public static async Task<Message> MoveMessageAsync(string Id, string folderName)
+        {
+            Message message = null;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                message = await graphClient.Me.Messages[Id].Move(folderName).Request().PostAsync();
+                Debug.WriteLine("Message " + Id + " moved to " + folderName );
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not move the message. The request returned this status code: " + e.Error.Message);
+            }
+
+            return message;
+
         }
 
         // Gets the signed-in user's manager. 
@@ -511,6 +703,33 @@ namespace Microsoft_Graph_Snippets_SDK
 
         }
 
+        // Gets the stream content of the signed-in user's photo. 
+        // This snippet doesn't work with consumer accounts.
+        public static async Task<Stream> GetCurrentUserPhotoStreamAsync()
+        {
+            Stream currentUserPhotoStream = null;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                currentUserPhotoStream = await graphClient.Me.Photo.Content.Request().GetAsync();
+                Debug.WriteLine("Got user photo stream: " + currentUserPhotoStream.ToString());
+
+            }
+
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not get the current user photo: " + e.Error.Message);
+                return null;
+
+            }
+
+            return currentUserPhotoStream;
+
+        }
+
+
         // Gets the groups that the signed-in user is a member of. 
         // This snippet requires an admin work account.
         public static async Task<IUserMemberOfCollectionWithReferencesPage> GetCurrentUserGroupsAsync()
@@ -565,6 +784,26 @@ namespace Microsoft_Graph_Snippets_SDK
             }
 
 
+        }
+
+        public static async Task<Permission> GetSharingLinkAsync(string Id)
+        {
+            Permission permission = null;
+
+            try
+            {
+                var graphClient = AuthenticationHelper.GetAuthenticatedClient();
+                permission = await graphClient.Me.Drive.Items[Id].CreateLink("view").Request().PostAsync();
+                Debug.WriteLine("Got sharing link for file: " + permission.Link.WebUrl);
+            }
+
+            catch (ServiceException e)
+            {
+                Debug.WriteLine("We could not get the sharing link: " + e.Error.Message);
+                return null;
+            }
+
+            return permission;
         }
 
         // Creates a text file in the user's root directory.
