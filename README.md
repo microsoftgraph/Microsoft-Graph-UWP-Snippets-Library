@@ -13,7 +13,7 @@
 * [Additional resources](#additional-resources)
 
 <a name="introduction"></a>
-##Introduction
+## Introduction
 
 This sample contains a repository of code snippets that show how to use the Microsoft Graph SDK to send email, manage groups, and perform other activities with Office 365 data. It uses the [Microsoft Graph .NET Client Library](https://github.com/microsoftgraph/msgraph-sdk-dotnet) to work with data returned by Microsoft Graph.
 
@@ -41,7 +41,7 @@ This sample requires the following:
 
       
 <a name="register"></a>
-##Register and configure the app
+## Register and configure the app
 
 1. Sign into the [App Registration Portal](https://apps.dev.microsoft.com/) using either your personal or work or school account.  
 2. Select **Add an app**.  
