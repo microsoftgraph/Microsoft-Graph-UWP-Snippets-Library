@@ -96,7 +96,7 @@ namespace Microsoft_Graph_Snippets_SDK
                 IdentityClientApp = new PublicClientApplication(clientId);
                 AuthenticationResult authResult = await IdentityClientApp.AcquireTokenAsync(scopes);
 
-                TokenForUser = authResult.Token;
+                TokenForUser = authResult.AccessToken;
                 expiration = authResult.ExpiresOn;
             }
 
@@ -111,7 +111,7 @@ namespace Microsoft_Graph_Snippets_SDK
         {
             foreach (var user in IdentityClientApp.Users)
             {
-                user.SignOut();
+                IdentityClientApp.Remove(user);
             }
             graphClient = null;
             TokenForUser = null;
