@@ -78,7 +78,7 @@ namespace Microsoft_Graph_Snippets_SDK
 
             try
             {
-                var group = await graphClient.Groups[groupId].Request().Expand("members").GetAsync();
+                var group = await graphClient.Groups[groupId].Members.Request().GetAsync();
                 members = group.Members;
 
 
@@ -108,7 +108,7 @@ namespace Microsoft_Graph_Snippets_SDK
             try
             {
 
-                var group = await graphClient.Groups[groupId].Request().Expand("owners").GetAsync();
+                var group = await graphClient.Groups[groupId].Owners.Request().GetAsync();
                 owners = group.Owners;
 
                 foreach (var owner in owners)
